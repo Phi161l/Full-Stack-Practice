@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Mini Next Blog
 
-## Getting Started
+A simple learning blog project built with **Next.js App Router**.  
+Shows how to use pages, layouts, dynamic routes, API routes, and basic in-memory data handling.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- View all posts  
+- Create a new post  
+- Dynamic post page using `/posts/[slug]`  
+- In-memory post storage (resets on reload)  
+- Global CSS + CSS Modules  
+- Shared layout across pages  
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🎨 Styling Used
 
-## Learn More
+### Global CSS (`globals.css`)
+- For overall app-wide styles  
+- `.container` class used as the parent wrapper  
 
-To learn more about Next.js, take a look at the following resources:
+### CSS Modules (`layout.module.css`)
+- Safe, scoped styles for layout and header  
+- Prevents style conflicts  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🧠 What I Learned
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Next.js App Router (pages, layouts, dynamic routes)  
+- API Routes (GET + POST)  
+- Server Components and `params.slug`  
+- When to use Global CSS vs CSS Modules  
+- Organizing a clean and readable folder structure
