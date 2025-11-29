@@ -1,0 +1,32 @@
+.container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+  font-family: sans-serif;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: indigo;
+}
+
+.postList {
+  list-style: none;
+  padding: 0;
+}
+
+.postItem {
+  margin-bottom: 0.8rem;
+}
+
+.postLink {
+  text-decoration: none;
+  color: #0070f3;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.postLink:hover {
+  color: #0366d6;
+}

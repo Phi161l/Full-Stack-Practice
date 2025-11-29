@@ -1,6 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import styles from "./create.module.css";
 
 export default function CreatePage() {
   const [title, setTitle] = useState("");
@@ -15,12 +16,11 @@ export default function CreatePage() {
       body: JSON.stringify({ title, content }),
     });
 
-    router.push("/")
-
+    router.push("/");
   }
 
   return (
-    <div>
+    <div className={styles.container}>
       <h2>Create New Post</h2>
 
       <form onSubmit={handleSubmit}>
@@ -28,15 +28,14 @@ export default function CreatePage() {
           type="text"
           placeholder="Title"
           value={title}
-          onChange={e => setTitle(e.target.value)}
-          style={{ display: "block", marginBottom: 10 }}
+          onChange={(e) => setTitle(e.target.value)}
         />
 
         <textarea
           placeholder="Content"
           value={content}
-          onChange={e => setContent(e.target.value)}
-          style={{ display: "block", marginBottom: 10 }}
+          onChange={(e) => setContent(e.target.value)}
+          rows={6}
         />
 
         <button type="submit">Create</button>

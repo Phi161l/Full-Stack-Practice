@@ -1,0 +1,18 @@
+body {
+  font-family: sans-serif;
+  padding: 2rem;
+  background-color: black;
+}
+
+h1, h2, p {
+  color: white;
+}
+
+a {
+  color: blue;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

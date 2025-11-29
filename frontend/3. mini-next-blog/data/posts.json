@@ -33,5 +33,20 @@
     "slug": "jkn",
     "title": "jkn",
     "content": "jlkm"
+  },
+  {
+    "slug": "sdg",
+    "title": "sdg",
+    "content": "rwsgr"
+  },
+  {
+    "slug": "erge",
+    "title": "erge",
+    "content": "rgtedget"
+  },
+  {
+    "slug": "dhted",
+    "title": "dhted",
+    "content": "hVery short: ✅\n\n```css\n.container textarea:focus {\n  border-color: #0070f3;\n  outline: none;\n}\n```\n\n* **`.container textarea:focus`** → targets the `<textarea>` **inside `.container` when it is focused** (clicked or active).\n* **`border-color: #0070f3;`** → changes the border to blue while focused.\n* **`outline: none;`** → removes the default browser outline around the textarea.\n\n**Effect:** When you click inside the textarea, the border turns blue and no extra outline shows.\n"
   }
 ]

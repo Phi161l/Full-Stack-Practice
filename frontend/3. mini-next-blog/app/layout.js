@@ -1,4 +1,6 @@
-import Link from "next/link";
+import './global.css';
+import Link from 'next/link';
+import styles from './layout.module.css';
 
 export const metadata = {
   title: "Mini Next Blog",
@@ -8,12 +10,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body style={{ padding: "2rem", fontFamily: "sans-serif" }}>
-        <header style={{ marginBottom: "2rem" }}>
-          <h1>Mini Next Blog</h1>
-          <nav>
-            <Link href="/" style={{ marginRight: 10 }}>Home</Link>
-            <Link href="/create">Create Post</Link>
+      <body className={styles.body}>
+        <header className={styles.header}>
+          <h1 className={styles.siteTitle}>Mini Next Blog</h1>
+          <nav className={styles.nav}>
+            <Link href="/" className={styles.navLink}>Home</Link>
+            <Link href="/create" className={styles.navLink}>Create Post</Link>
           </nav>
         </header>
 
