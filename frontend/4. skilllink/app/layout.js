@@ -1,12 +1,18 @@
+import "./globals.css";
+import Navbar from "./components/Navbar";
+
 export const metadata = {
-  title: "My App",
+  title: "SkillLink",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        {children}
+        <Navbar />
+        <div style={{ padding: "20px" }}>
+          {children}
+        </div>
       </body>
     </html>
   );
