@@ -1,21 +1,8 @@
 [
   {
-    "name": "gd",
+    "name": "abebe",
     "canTeach": [
-      "reg",
-      "eraigk",
-      "gregn"
-    ],
-    "wantToLearn": [
-      "eker",
-      "IQWKAD",
-      "ienf"
-    ]
-  },
-  {
-    "name": "erfer",
-    "canTeach": [
-      "gef",
+      "coding",
       "hello",
       "world",
       "my name",
@@ -26,6 +13,54 @@
       "ef",
       "wesf",
       "asidn"
+    ]
+  },
+  {
+    "name": "alice",
+    "canTeach": [
+      "english",
+      "biology",
+      "maths",
+      "applied",
+      "physc"
+    ],
+    "wantToLearn": [
+      "coding",
+      "progmming",
+      "java",
+      "pyhon"
+    ]
+  },
+  {
+    "name": "bob",
+    "canTeach": [
+      "coding",
+      "progmming",
+      "java",
+      "pyhon"
+    ],
+    "wantToLearn": [
+      "english",
+      "biology",
+      "maths",
+      "applied",
+      "physc"
+    ]
+  },
+  {
+    "name": "john",
+    "canTeach": [
+      "coding",
+      "progmming",
+      "java",
+      "pyhon"
+    ],
+    "wantToLearn": [
+      "english",
+      "biology",
+      "maths",
+      "applied",
+      "physc"
     ]
   }
 ]
