@@ -4,6 +4,7 @@ import { useState } from "react";
 
 export default function RegisterPage() {
   const [name, setName] = useState("");
+  const [Phone, setPhone] = useState("");
   const [canTeach, setCanTeach] = useState("");
   const [wantToLearn, setWantToLearn] = useState("");
   const [message, setMessage] = useState("");
@@ -13,6 +14,7 @@ export default function RegisterPage() {
 
     const payload = {
       name,
+      Phone,
       canTeach: canTeach.split(",").map(s => s.trim()),
       wantToLearn: wantToLearn.split(",").map(s => s.trim()),
     };
@@ -51,6 +53,16 @@ export default function RegisterPage() {
         </div>
 
         <div>
+          <label>Phone Number:</label><br />
+          <input 
+            type="tel" 
+            value={Phone}
+            onChange = { e => setPhone(e.target.value)}
+            required
+          />
+        </div>
+
+        <div>
           <label>Skills You Can Teach (comma separated):</label><br />
           <input 
             type="text" 
@@ -68,7 +80,7 @@ export default function RegisterPage() {
             onChange={e => setWantToLearn(e.target.value)}
             required
           />
-        </div>
+        </div>       
 
         <button type="submit">Register</button>
       </form>

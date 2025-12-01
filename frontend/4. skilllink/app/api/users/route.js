@@ -20,10 +20,10 @@ export async function GET() {
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { name, canTeach, wantToLearn } = body;
+    const { name, Phone, canTeach, wantToLearn } = body;
 
     // Basic validation
-    if (!name || !canTeach || !wantToLearn) {
+    if (!name || !Phone || !canTeach || !wantToLearn) {
       return Response.json({ error: "Missing fields" }, { status: 400 });
     }
 
@@ -34,6 +34,7 @@ export async function POST(request) {
     // Add new user
     users.push({
       name,
+      Phone,
       canTeach,
       wantToLearn,
     });

@@ -35,10 +35,13 @@ export function buildGraph(users) {
 
 
 // BFS to find closest matching users
-export function bfsMatches(startUser, graph) {
+export function bfsMatches(startUser, graph, users) {
   const visited = new Set();
   const queue = [startUser];
   const matches = [];
+
+  const usersMap = Object.fromEntries(users.map(u => [u.name, u]));
+
 
   visited.add(startUser);
 
@@ -49,7 +52,7 @@ export function bfsMatches(startUser, graph) {
       if (!visited.has(neighbor)) {
         visited.add(neighbor);
         queue.push(neighbor);
-        matches.push(neighbor);
+        matches.push(usersMap[neighbor]);
       }
     }
   }

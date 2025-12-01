@@ -7,7 +7,7 @@ export default function MatchPage() {
   const [selected, setSelected] = useState("");
   const [results, setResults] = useState([]);
 
-  
+
   // Load all users
   useEffect(() => {
     async function fetchUsers() {
@@ -66,12 +66,15 @@ export default function MatchPage() {
       <div>
         <h3>Matches:</h3>
         {results.length === 0 && <p>No matches found.</p>}
-        
+
         <ul>
           {results.map((r, i) => (
-            <li key={i}>{r}</li>
+            <li key={i}>
+              {r.name}:  <a href={`tel:${r.phone}`}> Call me: {r.phone}</a>
+            </li>
           ))}
         </ul>
+
       </div>
     </div>
   );

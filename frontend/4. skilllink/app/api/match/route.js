@@ -26,7 +26,7 @@ export async function POST(request) {
 
     // Build graph and find matches
     const graph = buildGraph(users);
-    const matches = bfsMatches(name, graph);
+    const matches = bfsMatches(name, graph, users);
 
     return Response.json({ matches });
   } catch (err) {

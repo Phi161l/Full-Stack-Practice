@@ -1,66 +1,32 @@
 [
   {
-    "name": "abebe",
-    "canTeach": [
-      "coding",
-      "hello",
-      "world",
-      "my name",
-      "f"
-    ],
-    "wantToLearn": [
-      "ewdf",
-      "ef",
-      "wesf",
-      "asidn"
-    ]
-  },
-  {
-    "name": "alice",
-    "canTeach": [
-      "english",
-      "biology",
-      "maths",
-      "applied",
-      "physc"
-    ],
-    "wantToLearn": [
-      "coding",
-      "progmming",
-      "java",
-      "pyhon"
-    ]
-  },
-  {
     "name": "bob",
-    "canTeach": [
-      "coding",
-      "progmming",
-      "java",
-      "pyhon"
-    ],
-    "wantToLearn": [
-      "english",
-      "biology",
-      "maths",
-      "applied",
-      "physc"
-    ]
+    "phone": "1234567890",
+    "canTeach": ["coding", "programming", "java", "python"],
+    "wantToLearn": ["english", "biology", "maths", "applied", "physics"]
   },
   {
     "name": "john",
-    "canTeach": [
-      "coding",
-      "progmming",
-      "java",
-      "pyhon"
-    ],
-    "wantToLearn": [
-      "english",
-      "biology",
-      "maths",
-      "applied",
-      "physc"
-    ]
+    "phone": "0987654321",
+    "canTeach": ["english", "biology", "maths"],
+    "wantToLearn": ["coding", "java"]
+  },
+  {
+    "name": "alice",
+    "phone": "5551234567",
+    "canTeach": ["maths", "applied", "physics"],
+    "wantToLearn": ["coding", "python", "english"]
+  },
+  {
+    "name": "mary",
+    "phone": "4449876543",
+    "canTeach": ["python", "java"],
+    "wantToLearn": ["biology", "applied"]
+  },
+  {
+    "name": "david",
+    "phone": "7775558888",
+    "canTeach": ["english", "coding"],
+    "wantToLearn": ["java", "python"]
   }
 ]
