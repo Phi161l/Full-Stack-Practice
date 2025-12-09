@@ -1,5 +1,8 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
+import styles from "./login.module.css"
+
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -8,6 +11,11 @@ export default function Login() {
 
   async function handleLogin(e) {
     e.preventDefault();
+
+    if (!email || !password) {
+      setMsg("Missed some fields")
+      return
+    }
 
     const res = await fetch("/api/login", {
       method: "POST",
@@ -25,15 +33,19 @@ export default function Login() {
   }
 
   return (
-    <div>
+    <div className={styles.container}>
       <h1>Login</h1>
       <form onSubmit={handleLogin}>
-        <input placeholder="email" value={email} onChange={e => setEmail(e.target.value)} /><br/>
-        <input placeholder="password" value={password} onChange={e => setPassword(e.target.value)} /><br/>
-        <button>Login</button>
+        <input placeholder="email" value={email} onChange={e => setEmail(e.target.value)} />
+        <input placeholder="password" value={password} onChange={e => setPassword(e.target.value)} />
+        <button disabled={!email || !password}>Login</button>
       </form>
 
-      <p>{msg}</p>
+      <p className={styles.msg}>{msg}</p>
+
+      <p className={styles.signupLink}>
+        Don't have an account? <Link href="/signup">Signup here</Link>
+      </p>
     </div>
   );
 }

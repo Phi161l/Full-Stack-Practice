@@ -1,0 +1,26 @@
+.container {
+  text-align: center;
+  margin-top: 100px;
+  font-family: Arial, sans-serif;
+}
+.container h1 {
+  font-size: 3rem;
+  color: #4f46e5; /* Indigo color */
+  margin-bottom: 20px;
+}
+.container a {
+    font-size: 1.2rem;
+}
+
+.container a{
+  color: #10b981; /* Emerald green */
+  text-decoration: none;
+  margin: 0 10px;
+  transition: color 0.3s;
+}
+
+.container a:hover {
+    color: #047857;
+    text-decoration: underline;
+}
+
