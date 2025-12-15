@@ -31,8 +31,11 @@ export async function PUT(request, { params }) {
 
 // DELETE note
 export async function DELETE(request, { params }) {
+  console.log("jv")
   const { id: strid } = await params;  
   const id = Number(strid);    
+
+  console.log(id)
 
   
   const data = fs.readFileSync(filePath, "utf-8");

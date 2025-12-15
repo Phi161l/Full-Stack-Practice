@@ -14,7 +14,7 @@ export async function GET() {
 
 }
 
-// Post for new note
+// POST for new note
 export async function POST(req) {
   const body = await req.json();
 
