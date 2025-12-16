@@ -21,6 +21,18 @@ A **simple Notes application** built with **Next.js (App Router)** for learning 
 * Basic state management
 * Navigation and redirects
 
+## ⚡i have understood React Rendering & Async 
+
+* **Client render is synchronous** → JSX must return immediately.
+* **useEffect** → fetch after render, UI stays responsive.
+* **Suspense** → pause a UI branch, show fallback, resume on data.
+* **SWR / React Query** → fetch outside render, cached/loading UI, auto-update.
+* **Top-level async in client** → breaks render → infinite loop.
+* **Server Components** → can await safely → pre-render HTML.
+* **Next.js fetch** → not cached by default; use `cache: 'no-store'` for fresh data.
+* **Async in UI** → must be controlled (effects, events, Suspense) to avoid blocking render.
+
+
 ## 📁 Folder Structure
 ```
 notes-app/
