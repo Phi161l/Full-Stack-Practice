@@ -19,7 +19,9 @@ export async function POST(request) {
   const newTask = {
     id: Date.now(),
     title: body.title,
+    completed: false
   };
+
 
   tasks.push(newTask);
   fs.writeFileSync(filePath, JSON.stringify(tasks, null, 2));

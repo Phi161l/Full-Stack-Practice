@@ -17,7 +17,12 @@ export async function PUT(request, { params }) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  tasks[index].title = body.title;
+
+  tasks[index] = {
+    ...tasks[index],
+    ...body,
+  };
+
   fs.writeFileSync(filePath, JSON.stringify(tasks, null, 2));
 
   return NextResponse.json(tasks[index]);
