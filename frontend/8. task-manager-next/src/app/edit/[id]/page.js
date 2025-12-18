@@ -1,39 +1,29 @@
-"use client";
+import fs from "fs";
+import path from "path";
+import {updateTask} from "../../actions/tasks"
 
-import { useEffect, useState } from "react";
-import { useRouter, useParams } from "next/navigation";
 
-export default function EditTask() {
-  const { id } = useParams();
-  const router = useRouter();
-  const [title, setTitle] = useState("");
+const filePath = path.join(process.cwd(), "src/data/tasks.json");
 
-  useEffect(() => {
-    fetch("/api/tasks")
-      .then((res) => res.json())
-      .then((tasks) => {
-        const task = tasks.find((t) => t.id === Number(id));
-        if (task) setTitle(task.title);
-      });
-  }, [id]);
-
-  async function submit(e) {
-    e.preventDefault();
-
-    await fetch(`/api/tasks/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title }),
-    });
-
-    router.push("/");
-    router.refresh();
-  }
+export default async function EditTaskPage({ params }) {
+  const {id} = await params
+  const tasks = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+  const task = tasks.find((t) => t.id === Number(id));
 
   return (
-    <form onSubmit={submit}>
-      <input value={title} onChange={(e) => setTitle(e.target.value)} />
+    <form
+      action={async (formData) => {
+        "use server";
+        await updateTask(task.id, {
+          title: formData.get("title"),
+        });
+      }}
+    >
+      <input name="title" defaultValue={task.title} />
       <button>Update</button>
     </form>
   );
 }
+
+
+
