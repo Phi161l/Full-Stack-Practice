@@ -3,6 +3,9 @@
 import fs from "fs";
 import path from "path";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+
+
 
 const filePath = path.join(process.cwd(), "src/data/tasks.json");
 
@@ -27,6 +30,7 @@ export async function addTask(formData) {
 
   writeTasks(tasks);
   revalidatePath("/");
+  redirect("/")
 }
 
 // UPDATE (title or completed)
@@ -40,6 +44,7 @@ export async function updateTask(id, data) {
   }
 
   revalidatePath("/");
+  redirect("/")
 }
 
 // DELETE
