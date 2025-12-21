@@ -44,7 +44,6 @@ export async function updateTask(id, data) {
   }
 
   revalidatePath("/");
-  redirect("/")
 }
 
 // DELETE
@@ -52,4 +51,10 @@ export async function deleteTask(id) {
   const tasks = readTasks().filter((t) => t.id !== id);
   writeTasks(tasks);
   revalidatePath("/");
+}
+
+
+
+export async function reorderTasks(newOrder) {
+  fs.writeFileSync(filePath, JSON.stringify(newOrder, null, 2));
 }
