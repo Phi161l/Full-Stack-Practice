@@ -1,5 +1,7 @@
 import fs from "fs";
 import path from "path";
+import {deleteUser}  from "../../../actions/users"
+import Link from "next/link";
 
 export default function UsersPage() {
   const filePath = path.join(process.cwd(), "src/data/users.json");
@@ -9,7 +11,7 @@ export default function UsersPage() {
     <div>
       <h2>Users</h2>
 
-      <table border="1" cellPadding="8">
+      <table cellPadding="8">
         <thead>
           <tr>
             <th>ID</th>
@@ -25,9 +27,12 @@ export default function UsersPage() {
               <td>{user.id}</td>
               <td>{user.name}</td>
               <td>{user.email}</td>
-              <td>
-                <button>View</button>{" "}
-                <button>Delete</button>
+              <td style={{display: "flex"} }>
+                <Link href={`/dashboard/users/${user.id}`}> View </Link> 
+                <form action={deleteUser} style={{marginLeft: 5}}>
+                    <input type="hidden" name="id" value={user.id} />
+                    <button> Delete </button>
+                </form>
               </td>
             </tr>
           ))}
