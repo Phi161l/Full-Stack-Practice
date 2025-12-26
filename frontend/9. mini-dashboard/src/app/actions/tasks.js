@@ -41,12 +41,12 @@ export async function deleteTask(formdata) {
 
     const updated = tasks.filter((t) => t.id !== id)
 
-    writeTasks(updated)
+    writeTasks(updated) 
 
     revalidatePath("/dashboard/tasks")
 }
 
-
+  
 
 
 export async function updatedTask(id, title) {
@@ -63,4 +63,21 @@ export async function updatedTask(id, title) {
     writeTasks(tasks)
 
     revalidatePath("/dashboard/tasks")
+}
+
+
+export async function completeTask(id, completed) {
+    const tasks = readTasks()
+    const index = tasks.findIndex((t) => t.id === id )
+
+    tasks[index] = {
+        ...tasks[index],
+        completed: completed
+    }
+
+    writeTasks(tasks)
+
+    revalidatePath("/dashboard/tasks")
+
+
 }
