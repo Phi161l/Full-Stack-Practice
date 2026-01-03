@@ -7,5 +7,6 @@ export async function GET() {
     if (!fs.existsSync(uploadDir)) return new Response(JSON.stringify({ files: [] }));
 
     const files = fs.readdirSync(uploadDir)
-    return new Response(JSON.stringify({files}), {status: 200});
+    const response = new Response(JSON.stringify({files}), {status: 200})
+    return response
 }

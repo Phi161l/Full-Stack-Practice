@@ -1,9 +1,21 @@
 "use client";
 
-import { useState} from "react";
+import { useState, useEffect } from "react";
 
-export default function UploadForm({onUpload}) {
+export default function UploadForm() {
   const [preview, setPreview] = useState(null);
+  const [files, setFiles] = useState([]);
+
+  async function fetchFiles() {
+    const res = await fetch("/api/list-uploads");
+    const data = await res.json();
+
+    setFiles(data.files);
+  }
+
+  useEffect(() => {
+    fetchFiles();
+  }, []);
 
   function handleFileChange(e) {
     const file = e.target.files[0];
@@ -27,8 +39,7 @@ export default function UploadForm({onUpload}) {
 
     alert(`File uploaded: ${data.filename}`);
 
-    if (onUpload) onUpload(); // notify parent to refresh
-
+    fetchFiles();
 
     if (preview) URL.revokeObjectURL(preview);
     setPreview(null);
@@ -56,6 +67,18 @@ export default function UploadForm({onUpload}) {
         <button type="submit">Upload</button>
       </form>
 
+      <div>
+        {files.length === 0 && <p> No uploads yet </p>}
+
+        {files.map((file) => (
+          <img
+            key={file}
+            src={`uploads/${file}`}
+            width={150}
+            style={{ margin: 8 }}
+          />
+        ))}
+      </div>
     </div>
   );
 }
