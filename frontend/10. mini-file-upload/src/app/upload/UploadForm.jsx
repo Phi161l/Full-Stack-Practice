@@ -37,7 +37,7 @@ export default function UploadForm() {
 
     const data = await res.json();
 
-    alert(`File uploaded: ${data.filename}`);
+    alert(`File uploaded: ${data.url}`);
 
     fetchFiles();
 
