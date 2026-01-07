@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 export default function UploadForm() {
   const [preview, setPreview] = useState(null);
   const [files, setFiles] = useState([]);
+  const [uploading, setUploading] = useState(false);
 
   async function fetchFiles() {
     const res = await fetch("/api/list-uploads");
@@ -28,6 +29,10 @@ export default function UploadForm() {
   async function handleSubmit(e) {
     e.preventDefault();
 
+    if (uploading) return;
+
+    setUploading(true);
+
     const formData = new FormData(e.target);
 
     const res = await fetch("/api/upload", {
@@ -45,6 +50,8 @@ export default function UploadForm() {
     setPreview(null);
 
     e.target.reset();
+
+    setUploading(false);
   }
 
   return (
@@ -64,7 +71,9 @@ export default function UploadForm() {
         <br />
         <br />
 
-        <button type="submit">Upload</button>
+        <button type="submit" disabled={uploading}>
+          {uploading ? "uploading" : "upload "}
+        </button>
       </form>
 
       <div>
@@ -72,8 +81,8 @@ export default function UploadForm() {
 
         {files.map((file) => (
           <img
-            key={file}
-            src={`uploads/${file}`}
+            key={file.id}
+            src={file.url}
             width={150}
             style={{ margin: 8 }}
           />

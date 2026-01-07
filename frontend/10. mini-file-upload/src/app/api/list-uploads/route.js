@@ -1,12 +1,9 @@
 import fs from "fs";
-import path from "path"
+import path from "path";
 
 export async function GET() {
-    const uploadDir = path.join(process.cwd(), "public/uploads")
-     
-    if (!fs.existsSync(uploadDir)) return new Response(JSON.stringify({ files: [] }));
+  const dataPath = path.join(process.cwd(), "src/data/uploads.json");
+  const uploads = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
 
-    const files = fs.readdirSync(uploadDir)
-    const response = new Response(JSON.stringify({files}), {status: 200})
-    return response
+  return Response.json({ files: uploads });
 }
