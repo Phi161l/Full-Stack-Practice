@@ -6,6 +6,7 @@ export default function UploadForm() {
   const [preview, setPreview] = useState(null);
   const [files, setFiles] = useState([]);
   const [uploading, setUploading] = useState(false);
+  const [deleting, setDeleting] = useState(null);
 
   async function fetchFiles() {
     const res = await fetch("/api/list-uploads");
@@ -54,6 +55,20 @@ export default function UploadForm() {
     setUploading(false);
   }
 
+  async function deleteUpload(file) {
+    setDeleting(file.id)
+
+    await fetch("/api/delete-upload", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(file),
+    });
+
+    setDeleting(null)
+
+    fetchFiles();
+  }
+
   return (
     <div>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -75,18 +90,20 @@ export default function UploadForm() {
           {uploading ? "uploading" : "upload "}
         </button>
       </form>
-
+      <br /> <br /> <br />
       <div>
         {files.length === 0 && <p> No uploads yet </p>}
 
-        {files.map((file) => (
-          <img
-            key={file.id}
-            src={file.url}
-            width={150}
-            style={{ margin: 8 }}
-          />
-        ))}
+        <div style={{ display: "flex", gap: "16px" }}>
+          {files.map((file) => (
+            <div key={file.id} style={{ marginRight: 8 }}>
+              <img src={file.url} width={150} /> <br />
+              <button onClick={() => deleteUpload(file)} disabled={deleting === file.id}>
+                {deleting == file.id ? "Deleting...": "Delete"}
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
