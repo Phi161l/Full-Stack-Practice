@@ -11,6 +11,11 @@ export async function POST(req) {
 
   await cloudinary.uploader.destroy(`uploads/${publicID}`);
 
+//   cloudinary.uploader.destroy("public_id", (error, result) => {
+//   console.log(result);
+// });
+
+
   const uploads = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
   const updated = uploads.filter((u) => u.id !== id);
 
