@@ -7,7 +7,7 @@ export default function Home() {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        background: "linear-gradient(135deg, #f093fb, #f5576c)",
+        background: "black",
         color: "#fff",
         fontFamily: "Arial, sans-serif",
         textAlign: "center",
@@ -30,7 +30,7 @@ export default function Home() {
             fontWeight: "bold",
           }}
         >
-          Get Started
+           <a href="/upload"> Get Started</a>
         </div>
         <div
           style={{
