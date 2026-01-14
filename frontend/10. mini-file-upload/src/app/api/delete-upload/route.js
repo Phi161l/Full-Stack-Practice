@@ -1,10 +1,17 @@
 import fs from "fs";
 import path from "path";
 import cloudinary from "../../../lib/cloudinary";
+import {getAuthUser} from "../../../lib/auth"
+import { error } from "console";
 
 const dataPath = path.join(process.cwd(), "src/data/uploads.json");
 
 export async function POST(req) {
+  user = getAuthUser();
+  if (!user ){
+    return Response.json({error: "Authorized "}, {status: 401})
+  }
+  
   const { id, url } = await req.json();
 
   const publicID = url.split("/").pop().split(".")[0];

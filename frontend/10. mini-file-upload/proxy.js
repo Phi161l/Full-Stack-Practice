@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { getAuthUser } from "../../frontend/9. mini-dashboard/src/middleware";
+import { getAuthUser } from "./src/lib/auth.js";
 
-export function middleware(req) {
+export function proxy(req) {
   const user = getAuthUser();
 
   const protectedPaths = [
@@ -30,3 +30,7 @@ export function middleware(req) {
 
   return NextResponse.next();
 }
+
+
+
+ 

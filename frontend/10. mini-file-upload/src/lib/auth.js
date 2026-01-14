@@ -4,7 +4,9 @@ import path from "path";
 
 export function getAuthUser() {
   const cookieStore = cookies();
+  console.log(cookieStore)
   const userId = cookieStore.get("userId")?.value;
+  console.log(userId)
 
   if (!userId) return null;
 

@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import cloudinary from "../../../lib/cloudinary.js";
+import {getAuthUser} from "../../../lib/auth.js"
 
 const dataPath = path.join(process.cwd(), "src/data/uploads.json");
 
@@ -8,6 +9,10 @@ const MAX_SIZE = 2 * 1024 * 1024;
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
 
 export async function POST(req) {
+  const user = getAuthUser();
+  if (!user) {
+    return Response.json({error: "Unauthorized"}, {status: 401})
+  }
   const formData = await req.formData();
   const file = formData.get("file");
 
