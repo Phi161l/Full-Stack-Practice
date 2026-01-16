@@ -3,8 +3,8 @@
 ////////---------------------///////////
 
 // // 1.  Creating an immediately resolved promise
-const p = Promise.resolve(10);          // creates a promise that resolves with 10 immediately
-console.log(p); 
+// const p = Promise.resolve(10);          // creates a promise that resolves with 10 immediately
+// console.log(p); 
 
 
 
@@ -101,3 +101,22 @@ console.log(p);
 // }
 
 // parallel();
+
+
+
+
+// // same funciton using promisses Vs Async/await
+function addUsingPromises(x, y){
+    return Promise.resolve(3)
+}
+
+// addUsingPromises(1,2).then((res) => console.log(res))
+console.log(addUsingPromises(1,2))
+
+
+
+async function addUsingAsyncAwait(x, y){
+    return 3
+}
+
+console.log(addUsingAsyncAwait(1,2))

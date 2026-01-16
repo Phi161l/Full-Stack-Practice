@@ -9,7 +9,7 @@ const MAX_SIZE = 2 * 1024 * 1024;
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
 
 export async function POST(req) {
-  const user = getAuthUser();
+  const user = await getAuthUser();
   if (!user) {
     return Response.json({error: "Unauthorized"}, {status: 401})
   }

@@ -2,13 +2,13 @@ import { cookies } from "next/headers";
 import fs from "fs";
 import path from "path";
 
-export function getAuthUser() {
-  const cookieStore = cookies();
-  console.log(cookieStore)
+export async function getAuthUser() {
+  const cookieStore = await cookies();
+  // console.log(cookieStore)
   const userId = cookieStore.get("userId")?.value;
-  console.log(userId)
+  // console.log(userId)
 
-  if (!userId) return null;
+  if (!userId) return null; 
 
   const filePath = path.join(process.cwd(), "src/data/users.json");
   const users = JSON.parse(fs.readFileSync(filePath, "utf-8"));

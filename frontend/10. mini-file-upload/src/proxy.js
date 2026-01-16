@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
-import { getAuthUser } from "./src/lib/auth.js";
+import { getAuthUser } from "./lib/auth.js";
 
-export function proxy(req) {
-  const user = getAuthUser();
+export async function proxy(req) {
+  const user = await getAuthUser();
+  console.log(user)
 
   const protectedPaths = [
     "/upload",
@@ -30,7 +31,3 @@ export function proxy(req) {
 
   return NextResponse.next();
 }
-
-
-
- 

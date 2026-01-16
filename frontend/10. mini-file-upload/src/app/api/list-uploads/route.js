@@ -3,9 +3,9 @@ import path from "path";
 import { getAuthUser } from "../../../lib/auth";
 
 export async function GET() {
-  user = getAuthUser();
+  const user = await getAuthUser();
   if (!user) {
-    return Response({ error: "Authorized" }, { status: 401 });
+    return new Response({ error: "Authorized" }, { status: 401 });
   }
   
   const dataPath = path.join(process.cwd(), "src/data/uploads.json");
