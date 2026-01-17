@@ -1,4 +1,4 @@
-import { logOut } from "../actions/auth";
+import { logOut } from "../../actions/auth";
 import UploadForm from "./UploadForm";
 
 export default function uploadPage() {
@@ -6,10 +6,10 @@ export default function uploadPage() {
     <>
       <h1>Upload Image</h1>
       <UploadForm />
-
-      <br /><br /><br /><br /><br /><br /><br />
+      <br /> <br /> <br /> <br />
+      
       <form action={logOut}>
-        <button> logOut</button>
+        <button> Logout </button>
       </form>
     </>
   );

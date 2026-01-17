@@ -4,13 +4,11 @@ import fs from "fs";
 import path from "path";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { use } from "react";
 
 const filePath = path.join(process.cwd(), "src/data/users.json");
 
 //signUp
 export async function signUp(formData) {
-  console.log("hii");
   const username = formData.get("username");
   const email = formData.get("email");
 
@@ -61,5 +59,5 @@ export async function logOut() {
   const cookieStore = await cookies();
   cookieStore.delete("userId");
 
-  redirect("/login");
+  redirect("/");
 }
