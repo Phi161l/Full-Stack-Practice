@@ -1,0 +1,12 @@
+[
+  {
+    "id": "1",
+    "email": "admin@coredash.com",
+    "role": "admin"
+  },
+  {
+    "id": "2",
+    "email": "user@coredash.com",
+    "role": "user"
+  }
+]
