@@ -6,12 +6,10 @@ export async function POST(req: Request) {
   const user = getUserByEmail(email);
 
   if (!user) {
-    return NextResponse.json(
-      { error: "Invalid email" },
-      { status: 401 }
-    );
+    return NextResponse.json({ error: "Invalid email" }, { status: 401 });
   }
 
-  createSession(user.id);
+  await createSession(user.id);
+
   return NextResponse.json({ success: true });
 }
