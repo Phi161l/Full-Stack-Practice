@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "id": "fe5ed1e9-899a-4a98-9af2-5fd4375d2a2c",
+    "action": "changed role of user 15 to admin",
+    "performedBy": "user10@coredash.com",
+    "timestamp": "2026-01-25T19:15:07.880Z"
+  },
+  {
+    "id": "6c20523e-c452-4fdc-af61-af2fc89ac51c",
+    "action": "Deleted user 32",
+    "performedBy": "user21@coredash.com",
+    "timestamp": "2026-01-25T19:17:26.703Z"
+  }
+]

@@ -17,7 +17,7 @@
   {
     "id": "15",
     "email": "user10@coredash.com",
-    "role": "user"
+    "role": "admin"
   },
   {
     "id": "16",
@@ -42,6 +42,96 @@
   {
     "id": "20",
     "email": "user13@coredash.com",
+    "role": "admin"
+  },
+  {
+    "id": "21",
+    "email": "user14@coredash.com",
+    "role": "user"
+  },
+  {
+    "id": "22",
+    "email": "admin8@coredash.com",
+    "role": "admin"
+  },
+  {
+    "id": "23",
+    "email": "user15@coredash.com",
+    "role": "admin"
+  },
+  {
+    "id": "24",
+    "email": "user16@coredash.com",
+    "role": "user"
+  },
+  {
+    "id": "25",
+    "email": "admin9@coredash.com",
+    "role": "admin"
+  },
+  {
+    "id": "26",
+    "email": "user17@coredash.com",
+    "role": "admin"
+  },
+  {
+    "id": "28",
+    "email": "admin10@coredash.com",
+    "role": "admin"
+  },
+  {
+    "id": "29",
+    "email": "user19@coredash.com",
+    "role": "admin"
+  },
+  {
+    "id": "30",
+    "email": "user20@coredash.com",
+    "role": "user"
+  },
+  {
+    "id": "31",
+    "email": "admin11@coredash.com",
+    "role": "admin"
+  },
+  {
+    "id": "33",
+    "email": "user22@coredash.com",
+    "role": "admin"
+  },
+  {
+    "id": "34",
+    "email": "admin12@coredash.com",
+    "role": "admin"
+  },
+  {
+    "id": "35",
+    "email": "user23@coredash.com",
+    "role": "user"
+  },
+  {
+    "id": "36",
+    "email": "user24@coredash.com",
+    "role": "admin"
+  },
+  {
+    "id": "37",
+    "email": "admin13@coredash.com",
+    "role": "admin"
+  },
+  {
+    "id": "38",
+    "email": "user25@coredash.com",
+    "role": "user"
+  },
+  {
+    "id": "39",
+    "email": "user26@coredash.com",
+    "role": "admin"
+  },
+  {
+    "id": "40",
+    "email": "admin14@coredash.com",
     "role": "admin"
   }
 ]

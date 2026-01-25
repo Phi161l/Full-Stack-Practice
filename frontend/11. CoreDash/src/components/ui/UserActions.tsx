@@ -15,7 +15,7 @@ export default function UserActions({ user }) {
 
   async function confirmDelete() {
     if (selectedUser) {
-      await deleteUser(selectedUser);
+      await deleteUser(selectedUser, user.email);
     }
 
     setModelOpen(false)
@@ -26,7 +26,7 @@ export default function UserActions({ user }) {
     <>
       {user.role === "user" && (
         <>
-          <button onClick={() => changeRole(user.id, "admin")}>
+          <button onClick={() => changeRole(user.id, "admin", user.email)}>
             Make Admin
           </button>
 

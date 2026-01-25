@@ -28,9 +28,19 @@ export default async function Sidebar() {
       {user?.role === "admin" && (
         <a
           href="/dashboard/users"
-          style={{ display: "block", textDecoration: "none" }}
+          style={{ display: "block", textDecoration: "none", marginBottom: "0.5rem", }}
         >
           Users
+        </a>
+      )}
+
+
+      {user?.role === "admin" && (
+        <a
+          href="/dashboard/logs"
+          style={{ display: "block", textDecoration: "none" }}
+        >
+          Logs
         </a>
       )}
       
