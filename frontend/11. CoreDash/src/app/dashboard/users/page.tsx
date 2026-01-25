@@ -2,6 +2,7 @@ import { getUsers } from "@/lib/fileStore";
 import { paginate } from "@/lib/pagination";
 import { requireUser } from "@/lib/auth";
 import Link from "next/link";
+import UserActions from "@/components/ui/UserActions";
 
 interface Props {
   searchParams: Promise<{
@@ -33,6 +34,8 @@ export default async function UsersPage({ searchParams }: Props) {
 
   const totalPages = Math.ceil(total / 5);
 
+  function hanldeDelete(id: string) {}
+
   return (
     <>
       <h1>Users</h1>
@@ -47,8 +50,9 @@ export default async function UsersPage({ searchParams }: Props) {
 
       <ul>
         {data.map((u) => (
-          <li key={u.id}>
+          <li key={u.id} style={{ display: "flex", gap: "2rem" }}>
             {u.email} — {u.role}
+            <UserActions user = {u} /> 
           </li>
         ))}
       </ul>
@@ -66,8 +70,7 @@ export default async function UsersPage({ searchParams }: Props) {
                 <Link href={href}> {pageNum}</Link>
               </div>
             );
-          })
-      }
+          })}
         </div>
       }
     </>
