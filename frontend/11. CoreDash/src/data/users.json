@@ -15,16 +15,6 @@
     "role": "admin"
   },
   {
-    "id": "15",
-    "email": "user10@coredash.com",
-    "role": "admin"
-  },
-  {
-    "id": "16",
-    "email": "admin6@coredash.com",
-    "role": "admin"
-  },
-  {
     "id": "17",
     "email": "user11@coredash.com",
     "role": "admin"
@@ -36,13 +26,13 @@
   },
   {
     "id": "19",
-    "email": "admin7@coredash.com",
-    "role": "admin"
+    "email": "user7@coredash.com",
+    "role": "user"
   },
   {
     "id": "20",
     "email": "user13@coredash.com",
-    "role": "admin"
+    "role": "user"
   },
   {
     "id": "21",
@@ -87,7 +77,7 @@
   {
     "id": "30",
     "email": "user20@coredash.com",
-    "role": "user"
+    "role": "admin"
   },
   {
     "id": "31",
@@ -105,11 +95,6 @@
     "role": "admin"
   },
   {
-    "id": "35",
-    "email": "user23@coredash.com",
-    "role": "user"
-  },
-  {
     "id": "36",
     "email": "user24@coredash.com",
     "role": "admin"
@@ -122,7 +107,7 @@
   {
     "id": "38",
     "email": "user25@coredash.com",
-    "role": "user"
+    "role": "admin"
   },
   {
     "id": "39",

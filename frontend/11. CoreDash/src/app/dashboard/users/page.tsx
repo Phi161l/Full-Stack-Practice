@@ -1,6 +1,6 @@
 import { getUsers } from "@/lib/fileStore";
 import { paginate } from "@/lib/pagination";
-import { requireUser } from "@/lib/auth";
+import { currSession } from "@/lib/auth";
 import Link from "next/link";
 import UserActions from "@/components/ui/UserActions";
 
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default async function UsersPage({ searchParams }: Props) {
-  const user = await requireUser();
+  const user = await currSession();
   if (user.role !== "admin") return <h2>Access Denied</h2>;
 
   const params = await searchParams;
@@ -33,8 +33,6 @@ export default async function UsersPage({ searchParams }: Props) {
   const { data, total } = paginate(users, page, 5);
 
   const totalPages = Math.ceil(total / 5);
-
-  function hanldeDelete(id: string) {}
 
   return (
     <>

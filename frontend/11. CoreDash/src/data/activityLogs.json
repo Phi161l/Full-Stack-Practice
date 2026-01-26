@@ -10,5 +10,59 @@
     "action": "Deleted user 32",
     "performedBy": "user21@coredash.com",
     "timestamp": "2026-01-25T19:17:26.703Z"
+  },
+  {
+    "id": "6927ac5d-d446-440c-822a-e0484a553e32",
+    "action": "Deleted user 35",
+    "performedBy": "user23@coredash.com",
+    "timestamp": "2026-01-26T07:10:17.041Z"
+  },
+  {
+    "id": "1ecc3e9c-203c-4267-b02b-2abe4db584c4",
+    "action": "changed role of user 18 to admin",
+    "performedBy": "user12@coredash.com",
+    "timestamp": "2026-01-26T07:10:26.968Z"
+  },
+  {
+    "id": "68ccaac5-4c95-4b0c-a24c-83c95c9a39bf",
+    "action": "changed role of user 21 to admin",
+    "performedBy": "user14@coredash.com",
+    "timestamp": "2026-01-26T07:10:38.064Z"
+  },
+  {
+    "id": "c10d0e08-5611-43f8-899f-a2a519153185",
+    "action": "changed role of user 30 to admin",
+    "performedBy": "user20@coredash.com",
+    "timestamp": "2026-01-26T07:43:44.244Z"
+  },
+  {
+    "id": "00245379-d665-4874-823d-858495c938da",
+    "action": "changed role of user 38 to admin",
+    "performedBy": "user25@coredash.com",
+    "timestamp": "2026-01-26T07:44:39.531Z"
+  },
+  {
+    "id": "1b7ce961-db18-485e-80b1-1b2b094d47aa",
+    "action": "changed role of user 13 to admin",
+    "performedBy": "user4@coredash.com",
+    "timestamp": "2026-01-26T08:26:00.702Z"
+  },
+  {
+    "id": "75bc567d-cccc-4097-a57a-622ce3c017c1",
+    "action": "Deleted user 16",
+    "performedBy": "user4@coredash.com",
+    "timestamp": "2026-01-26T08:26:56.692Z"
+  },
+  {
+    "id": "cad56ed8-7159-4b3b-ae90-dcb6e3f5243d",
+    "action": "Deleted user 15",
+    "performedBy": "admin8@coredash.com",
+    "timestamp": "2026-01-26T08:27:33.804Z"
+  },
+  {
+    "id": "cafddecf-9b31-466f-a02d-2b9b29a1d0b7",
+    "action": "changed role of user 17 to admin",
+    "performedBy": "admin8@coredash.com",
+    "timestamp": "2026-01-26T08:27:45.406Z"
   }
 ]

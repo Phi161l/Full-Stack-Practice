@@ -1,7 +1,7 @@
-import { requireUser } from "@/lib/auth";
+import { currSession } from "@/lib/auth";
 
 export default async function Sidebar() {
-  const user = await requireUser();
+  const user = await currSession();
 
   return (
     <aside

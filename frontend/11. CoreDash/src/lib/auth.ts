@@ -30,7 +30,7 @@ export async function destroySession() {
   (await cookies()).delete(SESSION_KEY);
 }
 
-export async function requireUser() {
+export async function currSession() {
   const user = await getSessionUser();
   if (!user) throw new Error("Unauthorized");
 
