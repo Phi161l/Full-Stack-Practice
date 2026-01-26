@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { changeRole, deleteUser } from "@/app/dashboard/users/actions";
 import ConfirmModal from "./ConfirmModal";
+import styles from "@/styles/UserActions.module.css";
 
 export default function UserActions({ user }) {
   const [modelOpen, setModelOpen] = useState(false);
@@ -14,24 +15,29 @@ export default function UserActions({ user }) {
   }
 
   async function confirmDelete() {
-    if (selectedUser) {
-      await deleteUser(selectedUser);
-    }
-
-    setModelOpen(false)
-    setSelectedUser(null)
+    if (selectedUser) await deleteUser(selectedUser);
+    setModelOpen(false);
+    setSelectedUser(null);
   }
 
   return (
     <>
       {user.role === "user" && (
-        <>
-          <button onClick={() => changeRole(user.id, "admin")}>
+        <div className={styles.actions}>
+          <button
+            className={styles.actionButton}
+            onClick={() => changeRole(user.id, "admin")}
+          >
             Make Admin
           </button>
 
-          <button onClick={() => handleDelete(user.id)}> Delete </button>
-        </>
+          <button
+            className={`${styles.actionButton} ${styles.deleteButton}`}
+            onClick={() => handleDelete(user.id)}
+          >
+            Delete
+          </button>
+        </div>
       )}
 
       <ConfirmModal

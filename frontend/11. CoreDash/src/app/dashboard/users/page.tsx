@@ -3,6 +3,7 @@ import { paginate } from "@/lib/pagination";
 import { currSession } from "@/lib/auth";
 import Link from "next/link";
 import UserActions from "@/components/ui/UserActions";
+import styles from "@/styles/UsersPage.module.css";
 
 interface Props {
   searchParams: Promise<{
@@ -25,52 +26,48 @@ export default async function UsersPage({ searchParams }: Props) {
   let users = getUsers();
 
   // filtering based on role
-  if (role) {
-    users = users.filter((u) => u.role === role);
-  }
+  if (role) users = users.filter((u) => u.role === role);
 
   // pagination
   const { data, total } = paginate(users, page, 5);
 
   const totalPages = Math.ceil(total / 5);
 
+
   return (
-    <>
-      <h1>Users</h1>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Users</h1>
 
-      {
-        <div style={{ marginBottom: "4rem", display: "flex", gap: "2rem" }}>
-          <Link href="/dashboard/users"> All </Link>
-          <Link href="/dashboard/users?role=admin"> Admin </Link>
-          <Link href="/dashboard/users?role=user"> User </Link>
-        </div>
-      }
+      <div className={styles.filterLinks}>
+        <Link href="/dashboard/users" className={styles.filterLink}>All</Link>
+        <Link href="/dashboard/users?role=admin" className={styles.filterLink}>Admin</Link>
+        <Link href="/dashboard/users?role=user" className={styles.filterLink}>User</Link>
+      </div>
 
-      <ul>
+      <ul className={styles.userList}>
         {data.map((u) => (
-          <li key={u.id} style={{ display: "flex", gap: "2rem" }}>
+          <li key={u.id} className={styles.userItem}>
             {u.email} — {u.role}
-            <UserActions user = {u} /> 
+            <UserActions user={u} />
           </li>
         ))}
       </ul>
 
-      {
-        <div style={{ marginTop: "4rem", display: "flex", gap: "2rem" }}>
-          {Array.from({ length: totalPages }).map((_, i) => {
-            const pageNum = 1 + i;
-            const href = role
-              ? `/dashboard/users?page=${pageNum}&role=${role} `
-              : `/dashboard/users?page=${pageNum}`;
+      <div className={styles.pagination}>
+        {Array.from({ length: totalPages }).map((_, i) => {
+          const pageNum = i + 1;
+          const href = role
+            ? `/dashboard/users?page=${pageNum}&role=${role}`
+            : `/dashboard/users?page=${pageNum}`;
 
-            return (
-              <div key={pageNum}>
-                <Link href={href}> {pageNum}</Link>
-              </div>
-            );
-          })}
-        </div>
-      }
-    </>
+          return (
+            <Link key={pageNum} href={href} className={styles.pageLink}>
+              {pageNum}
+            </Link>
+          );
+        })}
+      </div>
+    </div>
   );
 }
+

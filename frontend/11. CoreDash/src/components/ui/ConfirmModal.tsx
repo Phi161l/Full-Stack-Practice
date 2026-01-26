@@ -1,4 +1,4 @@
-import styles from "./ConfirmModal.module.css";
+import styles from "../../styles/ConfirmModal.module.css";
 
 export default function ConfirmModal({ open, onConfirm, onCancel, message }: any) {
   if (!open) return null;

@@ -11,5 +11,5 @@ export async function POST(req: Request) {
 
   await createSession(user.id);
 
-  return NextResponse.json({ success: true });
+  return NextResponse.json({ success: true ,  "jksdf": "vksld", hello: "world"});
 }
