@@ -3,22 +3,19 @@ import type { NextRequest } from "next/server";
 import { getUsers } from "./lib/fileStore";
 
 const PUBLIC_ROUTES = ["/", "/login"];
-const USER_BLOCKED_DASHBOARD_ROUTES = [
-  "/dashboard/users",
-  "/dashboard/logs",
-];
+const USER_BLOCKED_DASHBOARD_ROUTES = ["/dashboard/users", "/dashboard/logs"];
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   // 1. Read session safely
   const sessionCookie = req.cookies.get("coredash_session");
+
+  // if (!sessionCookie) return NextResponse.redirect(new URL("/login", req.url));   // redirected you too many times.
   const sessionId = sessionCookie?.value;
 
   const users = getUsers();
-  const user = sessionId
-    ? users.find((u) => u.id === sessionId)
-    : null;
+  const user = sessionId ? users.find((u) => u.id === sessionId) : null;
 
   const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
   const isDashboardRoute = pathname.startsWith("/dashboard");
@@ -36,9 +33,7 @@ export function middleware(req: NextRequest) {
   // 4. Role-based access control
   if (
     user?.role === "user" &&
-    USER_BLOCKED_DASHBOARD_ROUTES.some((route) =>
-      pathname.startsWith(route)
-    )
+    USER_BLOCKED_DASHBOARD_ROUTES.some((route) => pathname.startsWith(route))
   ) {
     return NextResponse.redirect(new URL("/dashboard", req.url));
   }

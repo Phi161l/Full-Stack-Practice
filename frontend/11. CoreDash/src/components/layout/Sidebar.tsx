@@ -1,4 +1,5 @@
 import { currSession } from "@/lib/auth";
+import LogoutButton from "../ui/LogoutButton";
 
 export default async function Sidebar() {
   const user = await currSession();
@@ -43,6 +44,10 @@ export default async function Sidebar() {
           Logs
         </a>
       )}
+
+      {/* logoutbutton  */}
+      <LogoutButton /> 
+
       
     </aside>
   );

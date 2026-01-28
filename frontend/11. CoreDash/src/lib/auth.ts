@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import rawUsers from "@/data/users.json";
 import { User } from "@/types/user";
+import { redirect } from "next/navigation";
 
 const SESSION_KEY = "coredash_session";
 const users: User[] = rawUsers as User[];
@@ -35,4 +36,10 @@ export async function currSession() {
   if (!user) throw new Error("Unauthorized");
 
   return user;
+}
+
+
+export async function logout() {
+  await destroySession();
+  redirect("/login")
 }
