@@ -10,6 +10,7 @@ export function proxy(req: NextRequest) {
 
   // 1. Read session safely
   const sessionCookie = req.cookies.get("coredash_session");
+  console.log(sessionCookie)
 
   // if (!sessionCookie) return NextResponse.redirect(new URL("/login", req.url));   // redirected you too many times.
   const sessionId = sessionCookie?.value;
@@ -19,6 +20,8 @@ export function proxy(req: NextRequest) {
 
   const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
   const isDashboardRoute = pathname.startsWith("/dashboard");
+
+  
 
   // 2. Not authenticated → block dashboard
   if (!user && isDashboardRoute) {

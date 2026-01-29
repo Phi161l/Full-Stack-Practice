@@ -22,7 +22,7 @@
   {
     "id": "18",
     "email": "user12@coredash.com",
-    "role": "user"
+    "role": "admin"
   },
   {
     "id": "19",
@@ -52,7 +52,7 @@
   {
     "id": "24",
     "email": "user16@coredash.com",
-    "role": "user"
+    "role": "admin"
   },
   {
     "id": "25",

@@ -5,50 +5,42 @@ export default async function Sidebar() {
   const user = await currSession();
 
   return (
-    <aside
-      style={{
-        width: 150,
-        backgroundColor: "violet",
-        padding: "1rem",
-        minHeight: "100vh",
-      }}
-    >
-      <h1 style={{ marginBottom: "1rem" }}>Options</h1>
+    <aside className="w-40 bg-violet-600 min-h-screen p-6 flex flex-col">
+      {/* Sidebar Title */}
+      <h1 className="text-white text-xl font-bold mb-6">Options</h1>
 
+      {/* Links */}
       <a
         href="/dashboard"
-        style={{
-          display: "block",
-          marginBottom: "0.5rem",
-          textDecoration: "none",
-        }}
+        className="text-white mb-3 block rounded px-2 py-1 hover:bg-violet-500 transition"
       >
         Dashboard
       </a>
 
       {user?.role === "admin" && (
-        <a
-          href="/dashboard/users"
-          style={{ display: "block", textDecoration: "none", marginBottom: "0.5rem", }}
-        >
-          Users
-        </a>
+        <>
+          <a
+            href="/dashboard/users"
+            className="text-white mb-3 block rounded px-2 py-1 hover:bg-violet-500 transition"
+          >
+            Users
+          </a>
+          <a
+            href="/dashboard/logs"
+            className="text-white mb-3 block rounded px-2 py-1 hover:bg-violet-500 transition"
+          >
+            Logs
+          </a>
+        </>
       )}
 
+      {/* Spacer */}
+      <div className="flex-1"></div>
 
-      {user?.role === "admin" && (
-        <a
-          href="/dashboard/logs"
-          style={{ display: "block", textDecoration: "none" }}
-        >
-          Logs
-        </a>
-      )}
-
-      {/* logoutbutton  */}
-      <LogoutButton /> 
-
-      
+      {/* Logout button */}
+      <div className="mt-6">
+        <LogoutButton />
+      </div>
     </aside>
   );
 }
