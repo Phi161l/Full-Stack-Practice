@@ -6,8 +6,8 @@ export default async function Sidebar() {
 
   return (
     <aside className="w-40 bg-violet-600 min-h-screen p-6 flex flex-col">
-      {/* Sidebar Title */}
-      <h1 className="text-white text-xl font-bold mb-6">Options</h1>
+      {/* Sidebar Title */} 
+      <h1 className="text-black text-3xl font-bold mb-6" >Options</h1>
 
       {/* Links */}
       <a
