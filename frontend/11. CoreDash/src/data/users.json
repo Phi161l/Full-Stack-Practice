@@ -118,5 +118,15 @@
     "id": "40",
     "email": "admin14@coredash.com",
     "role": "admin"
+  },
+  {
+    "id": "1769864365442",
+    "email": "ibrahim",
+    "role": "admin"
+  },
+  {
+    "id": "1769864414820",
+    "email": "muhaba",
+    "role": "user"
   }
 ]

@@ -1,35 +1,72 @@
 # 🧭 CoreDash
 
-**CoreDash** is a learning-focused, role-based admin dashboard built with **Next.js App Router**. I built this project to deepen my understanding of full-stack concepts, including authentication, authorization, server actions, secure data mutations, pagination, filtering, activity logging, and modular component architecture. CoreDash simulates a real-world SaaS admin dashboard while using a **JSON-based temporary data store** to focus on learning architecture and logic rather than database setup.
+**CoreDash** is a learning-focused, role-based admin dashboard built with **Next.js App Router**. I built this project to deeply understand how real-world full-stack dashboards are designed, especially around authentication, authorization, secure data handling, and modular architecture.
 
-**Features:**  
-- 🔐 **Authentication & Sessions:** Login via API routes, HttpOnly cookies, session expiration, and logout support.  
-- 🛂 **Authorization & RBAC:** Admin vs User roles, middleware-protected routes, and admin-only pages.  
-- 🧩 **Server Actions & Safe CRUD:** Update user roles, delete users with confirmation modals, and automatic UI revalidation.  
-- 📊 **Pagination & Filtering:** Query-based pagination and role-based filtering for user lists.  
-- 🧾 **Activity Logging:** Track sensitive actions such as role changes or deletions; logs are stored in JSON and visible only to admins.  
-- 🗂 **UI & Components:** Modular layout with Header, Sidebar, and reusable UI components like ConfirmModal, LogoutButton, and UserActions, styled using Tailwind CSS.
+The project simulates a SaaS-style admin dashboard while intentionally using a **JSON-based temporary data store** to focus on backend logic, security patterns, and system design rather than database setup.
 
-**Roles:**  
-- **Admin:** Can view all users, change roles, delete users, and view activity logs.  
-- **User:** Can access the dashboard home only; cannot access user management or logs.  
+---
 
-**Getting Started:**  
-Install dependencies with `npm install` and start the development server with `npm run dev`. Open [http://localhost:3000](http://localhost:3000) in your browser. Test accounts include `admin@coredash.com` (Admin) and `user@coredash.com` (User). Login uses email only for simplicity.
+## ✨ Features
 
-**Notes:**  
-- JSON files are used as a temporary data store; the architecture is designed to be database-ready and can be upgraded to PostgreSQL, MongoDB, Prisma, or any backend system.  
-- Server components fetch and render data, while client components handle interactivity.  
-- Middleware enforces route protection, role checks, and secure access for sensitive actions.  
+- 🔐 **Authentication & Sessions**
+  - Email-based **Signup and Login** using API routes
+  - Server-side session creation with **HttpOnly cookies**
+  - Session validation and logout support
+  - Clear API responses for invalid login or duplicate signup attempts
 
-**Future Enhancements:**  
-- Integrate a real database (PostgreSQL, MongoDB, etc.)  
-- Input validation with Zod  
-- Fine-grained permissions and audit log filtering  
-- Soft deletes and improved session management  
-- Search, sorting, and full UI design system  
+- 🛂 **Authorization & Role-Based Access Control (RBAC)**
+  - Admin and User roles
+  - Middleware-protected routes
+  - Admin-only pages and actions
 
-**Learning Goals:**  
-This project helped me understand authentication vs authorization, role-based access control, secure backend patterns, server actions, pagination, query handling, activity logging, and clean modular project architecture. It demonstrates how to design and implement a secure, maintainable, and scalable dashboard while learning modern Next.js patterns.
+- 🧩 **Server Actions & Safe Data Mutations**
+  - Update user roles
+  - Delete users with confirmation modals
+  - Automatic UI revalidation after mutations
 
-**License:** For learning and practice purposes only.
+- 📊 **Pagination & Filtering**
+  - Query-based pagination
+  - Role-based filtering for user lists
+
+- 🧾 **Activity Logging**
+  - Tracks sensitive actions such as role changes and deletions
+  - Logs stored in JSON files
+  - Logs are visible only to admins
+
+- 🗂 **UI & Component Architecture**
+  - Modular layout with Header, Sidebar, and reusable UI components
+  - Shared components like `ConfirmModal`, `LogoutButton`, and `UserActions`
+  - Styled consistently using **Tailwind CSS** across the entire application
+
+---
+
+## 👥 Roles
+
+- **Admin**
+  - View all users
+  - Change user roles
+  - Delete users
+  - View activity logs
+
+- **User**
+  - Access dashboard home
+  - Cannot access user management or activity logs
+
+---
+
+## 🚀 Getting Started
+
+Install dependencies and start the development server:
+
+```bash
+npm install
+npm run dev
+
+Open **http://localhost:3000** in your browser.
+
+### Test Accounts
+
+- `admin@coredash.com` → **Admin**
+- `user@coredash.com` → **User**
+
+> Login and signup use **email only** for simplicity in this learning-focused project.

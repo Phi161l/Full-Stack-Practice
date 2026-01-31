@@ -30,3 +30,10 @@ export function appendLog(log: ActivityLog){
   fs.writeFileSync(logsPath, JSON.stringify(updated, null, 2));
 }
 
+export function addUser(newUser: User){
+  const updatedUsers = [...users, newUser];
+
+  fs.writeFileSync(filePath, JSON.stringify(updatedUsers, null, 2))
+
+  users.push(newUser)
+}

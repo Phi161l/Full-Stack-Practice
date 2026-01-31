@@ -1,47 +1,49 @@
 "use client";
-
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-export default function LoginPage() {
+export default function signUp() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState(false);
   const router = useRouter();
 
-  async function handleLogin() {
-    setMessage("");
 
-    const res = await fetch("/api/login", {
+  async function handleSignUp() {
+    setMessage("")
+
+    const res = await fetch("/api/signUp", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "content-Type": "application/json" },
       body: JSON.stringify({ email }),
     });
 
     const data = await res.json();
 
-    if (!res.ok) {
-      setError(true);
-      setMessage(data.message);
-      return;
+    if(!res.ok){
+        setError(true)
+        setMessage(data.message)
+        return
+    }
+    else{
+        setError(false);
+        setMessage(data.message);
+        setEmail("")
     }
 
-    setError(false);
-    setMessage(data.message);
-
-    // redirect after successful login
-    router.push("/dashboard");
+    router.push("/login")
   }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-10 rounded-2xl shadow-xl w-full max-w-sm">
         <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-          Login
-        </h1>
+            {" "}
+            SignUp{" "}
+          </h1>
 
         <input
-          type="email"
+          type="text"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -49,29 +51,24 @@ export default function LoginPage() {
         />
 
         <button
-          onClick={handleLogin}
+          onClick={handleSignUp}
           className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition"
         >
-          Login
+          {" "}
+          SignUp{" "}
         </button>
 
-         {message && (
-          <p
-            className={`mt-4 text-sm text-center ${
-              error ? "text-red-600" : "text-green-600"
-            }`}
-          >
-            {message}
-          </p>
+        {message && (
+            <p className={`mt-4 text-sm text-center ${error ? "text-red-600" : "text-green-600"}`}> {message} </p>
         )}
 
-        <p className="mt-4 text-sm text-center">
-          Don’t have an account?{" "}
-          <a href="/signUp" className="text-blue-600 underline">
-            Sign Up
+
+         <p className="mt-4 text-sm text-center">
+          Do you have an account?{" "}
+          <a href="/login" className="text-blue-600 underline">
+            Login
           </a>
         </p>
-        
       </div>
     </div>
   );
