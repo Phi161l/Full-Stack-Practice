@@ -1,0 +1,6 @@
+[
+  { "id": "1", "name": "Laptop", "category": "electronics", "status": "active" },
+  { "id": "2", "name": "Phone", "category": "electronics", "status": "inactive" },
+  { "id": "3", "name": "Chair", "category": "furniture", "status": "active" },
+  { "id": "4", "name": "Table", "category": "furniture", "status": "active" }
+]
