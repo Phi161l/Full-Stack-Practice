@@ -2,5 +2,21 @@
   { "id": "1", "name": "Laptop", "category": "electronics", "status": "active" },
   { "id": "2", "name": "Phone", "category": "electronics", "status": "inactive" },
   { "id": "3", "name": "Chair", "category": "furniture", "status": "active" },
-  { "id": "4", "name": "Table", "category": "furniture", "status": "active" }
+  { "id": "4", "name": "Table", "category": "furniture", "status": "active" },
+  { "id": "5", "name": "Monitor", "category": "electronics", "status": "active" },
+  { "id": "6", "name": "Keyboard", "category": "electronics", "status": "active" },
+  { "id": "7", "name": "Mouse", "category": "electronics", "status": "inactive" },
+  { "id": "8", "name": "Desk", "category": "furniture", "status": "active" },
+  { "id": "9", "name": "Sofa", "category": "furniture", "status": "active" },
+  { "id": "10", "name": "Headphones", "category": "electronics", "status": "active" },
+  { "id": "11", "name": "Webcam", "category": "electronics", "status": "inactive" },
+  { "id": "12", "name": "Bookshelf", "category": "furniture", "status": "active" },
+  { "id": "13", "name": "Tablet", "category": "electronics", "status": "active" },
+  { "id": "14", "name": "Smartwatch", "category": "electronics", "status": "active" },
+  { "id": "15", "name": "Lamp", "category": "furniture", "status": "inactive" },
+  { "id": "16", "name": "Printer", "category": "electronics", "status": "active" },
+  { "id": "17", "name": "Router", "category": "electronics", "status": "active" },
+  { "id": "18", "name": "Bed", "category": "furniture", "status": "active" },
+  { "id": "19", "name": "Cabinet", "category": "furniture", "status": "active" },
+  { "id": "20", "name": "Speaker", "category": "electronics", "status": "inactive" }
 ]
