@@ -16,15 +16,26 @@ interface Props {
 export default async function HomePage({ searchParams }: Props) {
   const params = await searchParams;
 
-  const filtered = filterItems({
-    search: params.search,
-    category: params.category,
-    status: params.status,
-  });
+  let filtered = [];
+
+  try {
+    filtered = filterItems({
+      search: searchParams.search,
+      category: searchParams.category,
+      status: searchParams.status,
+    });
+  } catch (e) {
+    return (
+      <div>
+        <h1>SmartList</h1>
+        <p>⚠️ Too many requests. Please wait.</p>
+      </div>
+    );
+  }
 
   const page = Number(params.page ?? 1);
 
-  const { items, totalPages } = paginate(filtered, page , 5);
+  const { items, totalPages } = paginate(filtered, page, 5);
 
   return (
     <div className="p-6">
@@ -49,7 +60,6 @@ export default async function HomePage({ searchParams }: Props) {
       </ul>
 
       <Pagination current={page} total={totalPages} />
-
     </div>
   );
 }

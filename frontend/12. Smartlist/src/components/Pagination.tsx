@@ -12,7 +12,7 @@ export default function Pagination({
 
   function goToPage(page: number) {
     const params = new URLSearchParams(window.location.search);
-    params.set("page", String(page));
+    const u = params.set("page", String(page));
     router.push(`/?${params.toString()}`);
   }
 

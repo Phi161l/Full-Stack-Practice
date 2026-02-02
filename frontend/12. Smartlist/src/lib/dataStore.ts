@@ -1,5 +1,6 @@
 import items from "@/data/items.json";
 import { Item } from "@/types/item";
+import { checkRateLimit } from "./rateLimiter";
 
 interface FilterOptions {
   search?: string;
@@ -8,6 +9,9 @@ interface FilterOptions {
 }
 
 export function filterItems(filters: FilterOptions): Item[] {
+  if (!checkRateLimit()) {
+    throw new Error("Too many requests. Slow down.");
+  }
   let data = items as unknown as Item[];
 
   if (filters.search) {
