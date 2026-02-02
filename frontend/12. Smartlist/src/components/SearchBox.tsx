@@ -11,7 +11,8 @@ export default function SearchBox({ initialValue }: { initialValue: string }) {
     const timer = setTimeout(() => {
       const params = new URLSearchParams(window.location.search);
       if (value) params.set("search", value);
-
+      else params.delete("search")
+      
       router.push(`/?${params.toString()}`);
     }, 400); // debounce delay
 

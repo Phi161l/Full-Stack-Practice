@@ -1,23 +1,30 @@
 import FilterBar from "@/components/FilterBar";
+import Pagination from "@/components/Pagination";
 import SearchBox from "@/components/SearchBox";
 import { filterItems } from "@/lib/dataStore";
+import { paginate } from "@/lib/pagination";
 
 interface Props {
   searchParams: {
     search?: string;
     category?: string;
-    status?: string
+    status?: string;
+    page?: string;
   };
 }
 
 export default async function HomePage({ searchParams }: Props) {
   const params = await searchParams;
 
-  const items = filterItems({
+  const filtered = filterItems({
     search: params.search,
     category: params.category,
-    status: params.status
-  })
+    status: params.status,
+  });
+
+  const page = Number(params.page ?? 1);
+
+  const { items, totalPages } = paginate(filtered, page , 5);
 
   return (
     <div className="p-6">
@@ -25,11 +32,7 @@ export default async function HomePage({ searchParams }: Props) {
 
       <SearchBox initialValue={params.search ?? ""} />
 
-      <FilterBar
-        category={params.category}
-        status={params.status}
-      />
- 
+      <FilterBar category={params.category} status={params.status} />
 
       <ul className="space-y-2">
         {items.map((item) => (
@@ -44,6 +47,9 @@ export default async function HomePage({ searchParams }: Props) {
           </li>
         ))}
       </ul>
+
+      <Pagination current={page} total={totalPages} />
+
     </div>
   );
 }
