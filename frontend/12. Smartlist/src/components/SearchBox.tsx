@@ -9,7 +9,7 @@ export default function SearchBox({ initialValue }: { initialValue: string }) {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      const params = new URLSearchParams();
+      const params = new URLSearchParams(window.location.search);
       if (value) params.set("search", value);
 
       router.push(`/?${params.toString()}`);
@@ -18,9 +18,10 @@ export default function SearchBox({ initialValue }: { initialValue: string }) {
     return () => clearTimeout(timer);
   }, [value]);
 
+
   return (
     <input
-      type="text"
+      type="text" 
       placeholder="Search items..."
       value={value}
       onChange={(e) => setValue(e.target.value)}

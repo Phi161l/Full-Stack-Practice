@@ -1,21 +1,35 @@
+import FilterBar from "@/components/FilterBar";
 import SearchBox from "@/components/SearchBox";
-import { searchItems } from "@/lib/dataStore";
+import { filterItems } from "@/lib/dataStore";
 
 interface Props {
   searchParams: {
     search?: string;
+    category?: string;
+    status?: string
   };
 }
- 
+
 export default async function HomePage({ searchParams }: Props) {
   const params = await searchParams;
-  const items = searchItems(params.search);
+
+  const items = filterItems({
+    search: params.search,
+    category: params.category,
+    status: params.status
+  })
 
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">SmartList</h1>
 
       <SearchBox initialValue={params.search ?? ""} />
+
+      <FilterBar
+        category={params.category}
+        status={params.status}
+      />
+ 
 
       <ul className="space-y-2">
         {items.map((item) => (
