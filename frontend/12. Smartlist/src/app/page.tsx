@@ -4,6 +4,7 @@ import SearchBox from "@/components/SearchBox";
 import { filterItems } from "@/lib/dataStore";
 import { paginate } from "@/lib/pagination";
 import { headers } from "next/headers";
+import { features } from "@/lib/features";
 
 interface Props {
   searchParams: {
@@ -25,9 +26,9 @@ export default async function HomePage({ searchParams }: Props) {
 
   try {
     filtered = filterItems({
-      search: params.search,
-      category: params.category,
-      status: params.status,
+      search: features.search ? params.search : undefined,
+      category: features.filters ? params.category : undefined,
+      status: features.filters ? params.status : undefined,
       ip,
     });
   } catch (e) {
@@ -41,15 +42,19 @@ export default async function HomePage({ searchParams }: Props) {
 
   const page = Number(params.page ?? 1);
 
-  const { items, totalPages } = paginate(filtered, page, 5);
+  const { items, totalPages } = features.pagination
+    ? paginate(filtered, page, 10)
+    : { items: filtered, totalPages: 1 };
 
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">SmartList</h1>
 
-      <SearchBox initialValue={params.search ?? ""} />
+      {features.search && <SearchBox initialValue={params.search ?? ""} />}
 
-      <FilterBar category={params.category} status={params.status} />
+      {features.filters && (
+        <FilterBar category={params.category} status={params.status} />
+      )}
 
       <ul className="space-y-2">
         {items.map((item) => (
@@ -65,7 +70,8 @@ export default async function HomePage({ searchParams }: Props) {
         ))}
       </ul>
 
-      <Pagination current={page} total={totalPages} />
+      {features.pagination && <Pagination current={page} total={totalPages} />}
+      
     </div>
   );
 }

@@ -8,7 +8,7 @@ export default function SearchBox({ initialValue }: { initialValue: string }) {
   const router = useRouter();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const prevTimer = setTimeout(() => {
       const params = new URLSearchParams(window.location.search);
       if (value) params.set("search", value);
       else params.delete("search")
@@ -16,7 +16,9 @@ export default function SearchBox({ initialValue }: { initialValue: string }) {
       router.push(`/?${params.toString()}`);
     }, 400); // debounce delay
 
-    return () => clearTimeout(timer);
+    console.log(prevTimer)
+
+    return () => clearTimeout(prevTimer);
   }, [value]);
 
 

@@ -2,7 +2,7 @@ type RequestMap = Record<string, number[]>
 
 let requests: RequestMap = {};
 
-export function checkRateLimit(ip: string, limit = 5, windowMs = 10000) {
+export function checkRateLimit(ip: string, limit = 225, windowMs = 1000000) {
   const now = Date.now();
 
   // keep only recent requests
