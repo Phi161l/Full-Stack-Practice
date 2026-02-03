@@ -3,6 +3,7 @@ import Pagination from "@/components/Pagination";
 import SearchBox from "@/components/SearchBox";
 import { filterItems } from "@/lib/dataStore";
 import { paginate } from "@/lib/pagination";
+import { headers } from "next/headers";
 
 interface Props {
   searchParams: {
@@ -16,13 +17,18 @@ interface Props {
 export default async function HomePage({ searchParams }: Props) {
   const params = await searchParams;
 
+  const allHeaders = await headers();
+  const ip =
+    allHeaders.get("x-forwarded-for") || allHeaders.get("host") || "unknown";
+
   let filtered = [];
 
   try {
     filtered = filterItems({
-      search: searchParams.search,
-      category: searchParams.category,
-      status: searchParams.status,
+      search: params.search,
+      category: params.category,
+      status: params.status,
+      ip,
     });
   } catch (e) {
     return (

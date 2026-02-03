@@ -1,20 +1,22 @@
-let requests: number[] = [];
+type RequestMap = Record<string, number[]>
 
-export function checkRateLimit(
-  limit = 5,
-  windowMs = 10000
-) {
+let requests: RequestMap = {};
+
+export function checkRateLimit(ip: string, limit = 5, windowMs = 10000) {
   const now = Date.now();
 
   // keep only recent requests
-  requests = requests.filter(
-    (time) => now - time < windowMs
-  );
+  if (!requests[ip]) requests[ip] = [];
 
-  if (requests.length >= limit) {
+  requests[ip] = requests[ip].filter((time) => now - time < windowMs);
+
+  if (requests[ip].length >= limit) {
     return false; // blocked
   }
 
-  requests.push(now);
+  requests[ip].push(now); 
   return true; // allowed
 }
+
+
+ 
