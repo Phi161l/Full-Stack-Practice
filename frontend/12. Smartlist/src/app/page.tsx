@@ -5,6 +5,7 @@ import { filterItems } from "@/lib/dataStore";
 import { paginate } from "@/lib/pagination";
 import { headers } from "next/headers";
 import { features } from "@/lib/features";
+import InfiniteScroll from "@/components/InfiniteScroll";
 
 interface Props {
   searchParams: {
@@ -56,22 +57,26 @@ export default async function HomePage({ searchParams }: Props) {
         <FilterBar category={params.category} status={params.status} />
       )}
 
-      <ul className="space-y-2">
-        {items.map((item) => (
-          <li
-            key={item.id}
-            className="border border-gray-800 bg-black text-white p-3 rounded hover:bg-gray-950 transition"
-          >
-            <div className="font-medium">{item.name}</div>
-            <div className="text-sm text-gray-500">
-              {item.category} - {item.status}
-            </div>
-          </li>
-        ))}
-      </ul>
+      {features.pagination && (
+        <>
+          <ul className="space-y-2">
+            {items.map((item) => (
+              <li
+                key={item.id}
+                className="border border-gray-800 bg-black text-white p-3 rounded hover:bg-gray-950 transition"
+              >
+                <div className="font-medium">{item.name}</div>
+                <div className="text-sm text-gray-500">
+                  {item.category} - {item.status}
+                </div>
+              </li>
+            ))}
+          </ul>
+          <Pagination current={page} total={totalPages} />
+        </>
+      )}
 
-      {features.pagination && <Pagination current={page} total={totalPages} />}
-      
+      {features.infinteScrolling && <InfiniteScroll filtered={filtered} />}
     </div>
   );
 }

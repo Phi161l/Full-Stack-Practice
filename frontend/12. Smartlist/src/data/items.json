@@ -9,6 +9,7 @@
   { "id": "8", "name": "Desk", "category": "furniture", "status": "active" },
   { "id": "9", "name": "Sofa", "category": "furniture", "status": "active" },
   { "id": "10", "name": "Headphones", "category": "electronics", "status": "active" },
+
   { "id": "11", "name": "Webcam", "category": "electronics", "status": "inactive" },
   { "id": "12", "name": "Bookshelf", "category": "furniture", "status": "active" },
   { "id": "13", "name": "Tablet", "category": "electronics", "status": "active" },
@@ -19,6 +20,7 @@
   { "id": "18", "name": "Bed", "category": "furniture", "status": "active" },
   { "id": "19", "name": "Cabinet", "category": "furniture", "status": "active" },
   { "id": "20", "name": "Speaker", "category": "electronics", "status": "inactive" },
+
   { "id": "21", "name": "Gaming Console", "category": "electronics", "status": "active" },
   { "id": "22", "name": "Dresser", "category": "furniture", "status": "active" },
   { "id": "23", "name": "Coffee Table", "category": "furniture", "status": "inactive" },
@@ -29,6 +31,7 @@
   { "id": "28", "name": "Router Modem", "category": "electronics", "status": "active" },
   { "id": "29", "name": "TV", "category": "electronics", "status": "active" },
   { "id": "30", "name": "Nightstand", "category": "furniture", "status": "active" },
+
   { "id": "31", "name": "Wireless Charger", "category": "electronics", "status": "active" },
   { "id": "32", "name": "Bookshelf Large", "category": "furniture", "status": "inactive" },
   { "id": "33", "name": "Smart Thermostat", "category": "electronics", "status": "active" },
@@ -39,6 +42,7 @@
   { "id": "38", "name": "Projector", "category": "electronics", "status": "active" },
   { "id": "39", "name": "Dining Chair", "category": "furniture", "status": "active" },
   { "id": "40", "name": "Smart Light", "category": "electronics", "status": "active" },
+
   { "id": "41", "name": "Gaming Chair", "category": "furniture", "status": "inactive" },
   { "id": "42", "name": "VR Headset", "category": "electronics", "status": "active" },
   { "id": "43", "name": "Couch Table", "category": "furniture", "status": "active" },
@@ -49,6 +53,7 @@
   { "id": "48", "name": "Earbuds", "category": "electronics", "status": "inactive" },
   { "id": "49", "name": "Wall Shelf", "category": "furniture", "status": "active" },
   { "id": "50", "name": "Printer Ink", "category": "electronics", "status": "active" },
+
   { "id": "51", "name": "Coffee Maker", "category": "electronics", "status": "active" },
   { "id": "52", "name": "Accent Chair", "category": "furniture", "status": "inactive" },
   { "id": "53", "name": "Desk Organizer", "category": "furniture", "status": "active" },
@@ -58,5 +63,49 @@
   { "id": "57", "name": "TV Stand", "category": "furniture", "status": "inactive" },
   { "id": "58", "name": "Home Security Camera", "category": "electronics", "status": "active" },
   { "id": "59", "name": "Wardrobe Large", "category": "furniture", "status": "active" },
-  { "id": "60", "name": "Smart Plug", "category": "electronics", "status": "active" }
+  { "id": "60", "name": "Smart Plug", "category": "electronics", "status": "active" },
+
+  { "id": "61", "name": "Electric Kettle", "category": "electronics", "status": "active" },
+  { "id": "62", "name": "Side Table", "category": "furniture", "status": "active" },
+  { "id": "63", "name": "Wireless Keyboard", "category": "electronics", "status": "active" },
+  { "id": "64", "name": "Bookshelf Medium", "category": "furniture", "status": "inactive" },
+  { "id": "65", "name": "Noise Cancelling Headphones", "category": "electronics", "status": "active" },
+  { "id": "66", "name": "Standing Desk", "category": "furniture", "status": "active" },
+  { "id": "67", "name": "Smart Speaker", "category": "electronics", "status": "active" },
+  { "id": "68", "name": "Drawer Unit", "category": "furniture", "status": "inactive" },
+  { "id": "69", "name": "USB Hub", "category": "electronics", "status": "active" },
+  { "id": "70", "name": "Wall Mirror", "category": "furniture", "status": "active" },
+
+  { "id": "71", "name": "Power Bank", "category": "electronics", "status": "active" },
+  { "id": "72", "name": "Recliner Chair", "category": "furniture", "status": "inactive" },
+  { "id": "73", "name": "Web Router Pro", "category": "electronics", "status": "active" },
+  { "id": "74", "name": "Storage Ottoman", "category": "furniture", "status": "active" },
+  { "id": "75", "name": "Smart TV", "category": "electronics", "status": "active" },
+  { "id": "76", "name": "Computer Desk", "category": "furniture", "status": "active" },
+  { "id": "77", "name": "Bluetooth Speaker", "category": "electronics", "status": "inactive" },
+  { "id": "78", "name": "Shoe Rack", "category": "furniture", "status": "active" },
+  { "id": "79", "name": "HDMI Cable", "category": "electronics", "status": "active" },
+  { "id": "80", "name": "Wardrobe Small", "category": "furniture", "status": "active" },
+
+  { "id": "81", "name": "Smart Lock", "category": "electronics", "status": "active" },
+  { "id": "82", "name": "Corner Shelf", "category": "furniture", "status": "inactive" },
+  { "id": "83", "name": "Wireless Earphones", "category": "electronics", "status": "active" },
+  { "id": "84", "name": "Bar Stool", "category": "furniture", "status": "active" },
+  { "id": "85", "name": "Laptop Charger", "category": "electronics", "status": "active" },
+  { "id": "86", "name": "TV Cabinet", "category": "furniture", "status": "inactive" },
+  { "id": "87", "name": "Smart Alarm Clock", "category": "electronics", "status": "active" },
+  { "id": "88", "name": "Books Rack", "category": "furniture", "status": "active" },
+  { "id": "89", "name": "Streaming Device", "category": "electronics", "status": "active" },
+  { "id": "90", "name": "Study Table", "category": "furniture", "status": "active" },
+
+  { "id": "91", "name": "WiFi Extender", "category": "electronics", "status": "active" },
+  { "id": "92", "name": "Drawer Cabinet", "category": "furniture", "status": "inactive" },
+  { "id": "93", "name": "Smart Scale", "category": "electronics", "status": "active" },
+  { "id": "94", "name": "Rocking Chair", "category": "furniture", "status": "active" },
+  { "id": "95", "name": "Desktop PC", "category": "electronics", "status": "active" },
+  { "id": "96", "name": "Storage Bench", "category": "furniture", "status": "active" },
+  { "id": "97", "name": "USB Flash Drive", "category": "electronics", "status": "active" },
+  { "id": "98", "name": "Bedside Table", "category": "furniture", "status": "inactive" },
+  { "id": "99", "name": "Smart Smoke Detector", "category": "electronics", "status": "active" },
+  { "id": "100", "name": "Hallway Console", "category": "furniture", "status": "active" }
 ]
