@@ -6,6 +6,7 @@ import { paginate } from "@/lib/pagination";
 import { headers } from "next/headers";
 import { features } from "@/lib/features";
 import InfiniteScroll from "@/components/InfiniteScroll";
+import Link from "next/link";
 
 interface Props {
   searchParams: {
@@ -13,6 +14,7 @@ interface Props {
     category?: string;
     status?: string;
     page?: string;
+    view: string;
   };
 }
 
@@ -41,14 +43,22 @@ export default async function HomePage({ searchParams }: Props) {
     );
   }
 
-  const pageParam  = Number(params.page ?? 1);
-  const limit = 10
+  if (params.view === "infinite") {
+    features.infinteScrolling = true;
+    features.pagination = false;
+  } else if (params.view === "pagination") {
+    features.infinteScrolling = false;
+    features.pagination = true;
+  }
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / limit ));  
+  const pageParam = Number(params.page ?? 1);
+  const limit = 10;
 
-  const page = pageParam  > totalPages ? 1 : pageParam ;
+  const totalPages = Math.max(1, Math.ceil(filtered.length / limit));
 
-  const {items} = features.pagination
+  const page = pageParam > totalPages ? 1 : pageParam;
+
+  const { items } = features.pagination
     ? paginate(filtered, page, limit)
     : { items: filtered };
 
@@ -58,9 +68,35 @@ export default async function HomePage({ searchParams }: Props) {
 
       {features.search && <SearchBox initialValue={params.search ?? ""} />}
 
-      {features.filters && (
-        <FilterBar category={params.category} status={params.status} />
-      )}
+      <div className="flex justify-between items-center mb-5">
+        {features.filters && (
+          <FilterBar category={params.category} status={params.status} />
+        )}
+
+        <div className="flex gap-2">
+          <Link
+            href={`/?${new URLSearchParams({ ...params, view: "infinite" }).toString()}`}
+            className={`px-3 py-1 rounded ${
+              params.view === "infinite"
+                ? "bg-blue-600 text-white"
+                : "bg-gray-800 text-gray-400"
+            }`}
+          >
+            Infinite Scroll
+          </Link>
+
+          <Link
+            href={`/?${new URLSearchParams({ ...params, view: "pagination" }).toString()}`}
+            className={`px-3 py-1 rounded ${
+              params.view === "pagination"
+                ? "bg-blue-600 text-white" 
+                : "bg-gray-800 text-gray-400"
+            }`}
+          >
+            Pagination
+          </Link>
+        </div>
+      </div>
 
       {features.pagination && (
         <>
