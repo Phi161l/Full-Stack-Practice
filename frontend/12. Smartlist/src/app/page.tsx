@@ -41,11 +41,16 @@ export default async function HomePage({ searchParams }: Props) {
     );
   }
 
-  const page = Number(params.page ?? 1);
+  const pageParam  = Number(params.page ?? 1);
+  const limit = 10
 
-  const { items, totalPages } = features.pagination
-    ? paginate(filtered, page, 10)
-    : { items: filtered, totalPages: 1 };
+  const totalPages = Math.max(1, Math.ceil(filtered.length / limit ));  
+
+  const page = pageParam  > totalPages ? 1 : pageParam ;
+
+  const {items} = features.pagination
+    ? paginate(filtered, page, limit)
+    : { items: filtered };
 
   return (
     <div className="p-6">
@@ -72,7 +77,9 @@ export default async function HomePage({ searchParams }: Props) {
               </li>
             ))}
           </ul>
-          <Pagination current={page} total={totalPages} />
+
+          {/* pagination button */}
+          <Pagination currentPage={page} totalPage={totalPages} />
         </>
       )}
 

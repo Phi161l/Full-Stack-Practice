@@ -7,6 +7,5 @@ export function paginate<T>(data: T[], page: number, limit: number) {
     total: data.length,
     page,
     limit,
-    totalPages: Math.ceil(data.length / limit),
   };
 }

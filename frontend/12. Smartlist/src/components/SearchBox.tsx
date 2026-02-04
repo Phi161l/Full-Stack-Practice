@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function SearchBox({ initialValue }: { initialValue: string }) {
+export default function SearchBox({ initialValue}: { initialValue: string}) {
   const [value, setValue] = useState(initialValue);
   const router = useRouter();
 
@@ -15,8 +15,6 @@ export default function SearchBox({ initialValue }: { initialValue: string }) {
       
       router.push(`/?${params.toString()}`);
     }, 400); // debounce delay
-
-    console.log(prevTimer)
 
     return () => clearTimeout(prevTimer);
   }, [value]);

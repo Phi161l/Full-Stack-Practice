@@ -2,25 +2,26 @@
 import { useRouter } from "next/navigation";
 
 export default function Pagination({
-  current,
-  total,
+  currentPage,
+  totalPage
 }: {
-  current: number;
-  total: number;
+  currentPage: number;
+  totalPage: number;
 }) {
   const router = useRouter();
 
   function goToPage(page: number) {
     const params = new URLSearchParams(window.location.search);
-    const u = params.set("page", String(page));
+    params.set("page", String(page));
     router.push(`/?${params.toString()}`);
   }
 
+
   return (
     <div className="flex gap-2 my-6">
-      {Array.from({ length: total }).map((_, i) => {
+      {Array.from({ length: totalPage }).map((_, i) => {
         const page = i + 1;
-        const isActive = page === current;
+        const isActive = page === currentPage;
 
         return (
           <button
