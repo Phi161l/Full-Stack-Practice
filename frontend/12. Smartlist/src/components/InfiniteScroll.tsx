@@ -10,6 +10,11 @@ export default function InfiniteScroll(Props: { filtered: Item[] }) {
   const [items, setItems] = useState(paginate(filtered, 1, 10).items);
 
   useEffect(() => {
+    setPage(1);
+    setItems(paginate(filtered, 1, 10).items);
+  }, [filtered]);
+
+  useEffect(() => {
     function onScroll() {
       if (
         window.innerHeight + window.scrollY >=

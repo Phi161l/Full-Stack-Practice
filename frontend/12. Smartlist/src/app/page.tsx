@@ -19,30 +19,31 @@ interface Props {
 }
 
 export default async function HomePage({ searchParams }: Props) {
-  const params = await searchParams;
+  const params = await searchParams; // destructured search params
 
-  const allHeaders = await headers();
+  const allHeaders = await headers(); // get request headers
   const ip =
-    allHeaders.get("x-forwarded-for") || allHeaders.get("host") || "unknown";
+    allHeaders.get("x-forwarded-for") || allHeaders.get("host") || "unknown"; // determine client IP for rate limiting
 
   let filtered = [];
 
   try {
     filtered = filterItems({
-      search: features.search ? params.search : undefined,
+      search: features.search ? params.search : undefined, // only filter if feature enabled
       category: features.filters ? params.category : undefined,
       status: features.filters ? params.status : undefined,
-      ip,
+      ip, // pass IP for per-client rate limiting
     });
   } catch (e) {
     return (
       <div>
         <h1>SmartList</h1>
-        <p>⚠️ Too many requests. Please wait.</p>
+        <p>⚠️ Too many requests. Please wait.</p> {/* show rate limit message */}
       </div>
     );
   }
 
+  // toggle feature based on view param
   if (params.view === "infinite") {
     features.infinteScrolling = true;
     features.pagination = false;
@@ -51,29 +52,31 @@ export default async function HomePage({ searchParams }: Props) {
     features.pagination = true;
   }
 
-  const pageParam = Number(params.page ?? 1);
+  const pageParam = Number(params.page ?? 1); // convert page param to number
   const limit = 10;
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / limit));
+  const totalPages = Math.max(1, Math.ceil(filtered.length / limit)); // calculate total pages
 
-  const page = pageParam > totalPages ? 1 : pageParam;
+  const page = pageParam > totalPages ? 1 : pageParam; // reset to 1 if page param exceeds total
 
   const { items } = features.pagination
-    ? paginate(filtered, page, limit)
-    : { items: filtered };
+    ? paginate(filtered, page, limit) // get paginated items
+    : { items: filtered }; // otherwise show all items
 
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">SmartList</h1>
 
-      {features.search && <SearchBox initialValue={params.search ?? ""} />}
+      {features.search && <SearchBox initialValue={params.search ?? ""} />} {/* search bar */}
 
+      {/* filter and switch component */}
       <div className="flex justify-between items-center mb-5">
         {features.filters && (
-          <FilterBar category={params.category} status={params.status} />
+          <FilterBar category={params.category} status={params.status} /> // filters
         )}
 
         <div className="flex gap-2">
+          {/* switch to infinite scroll */}
           <Link
             href={`/?${new URLSearchParams({ ...params, view: "infinite" }).toString()}`}
             className={`px-3 py-1 rounded ${
@@ -85,6 +88,7 @@ export default async function HomePage({ searchParams }: Props) {
             Infinite Scroll
           </Link>
 
+          {/* switch to pagination */}
           <Link
             href={`/?${new URLSearchParams({ ...params, view: "pagination" }).toString()}`}
             className={`px-3 py-1 rounded ${
@@ -98,6 +102,7 @@ export default async function HomePage({ searchParams }: Props) {
         </div>
       </div>
 
+      {/* display items and pagination button */}
       {features.pagination && (
         <>
           <ul className="space-y-2">
@@ -114,12 +119,13 @@ export default async function HomePage({ searchParams }: Props) {
             ))}
           </ul>
 
-          {/* pagination button */}
+          {/* pagination buttons */}
           <Pagination currentPage={page} totalPage={totalPages} />
         </>
       )}
 
-      {features.infinteScrolling && <InfiniteScroll filtered={filtered} />}
+      {/* infinte scroll component */}
+      {features.infinteScrolling && <InfiniteScroll filtered={filtered} />} {/* infinite scroll */}
     </div>
   );
 }
