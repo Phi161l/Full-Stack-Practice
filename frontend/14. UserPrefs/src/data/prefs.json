@@ -1,5 +1,5 @@
 {
   "theme": "dark",
-  "notifinations": "true",
-  "language": "en"
+  "language": "en",
+  "notification": false
 }

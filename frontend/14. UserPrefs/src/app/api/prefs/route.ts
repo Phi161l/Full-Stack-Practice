@@ -1,6 +1,12 @@
 import { NextResponse } from "next/server";
 import { getPrefs, savePrefs } from "@/src/lib/prefsStores";
 
+export async function GET(req: Request) {
+  const prefs = getPrefs();
+  return NextResponse.json(prefs);
+}
+
+
 export async function POST(req: Request) {
   const updates = await req.json();
   const prefs = getPrefs();
