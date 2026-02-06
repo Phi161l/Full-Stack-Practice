@@ -8,13 +8,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const prefs = getPrefs();
+  const isDark = prefs.theme === "dark";
 
   return (
-    <html lang="en" className={prefs.theme === "dark" ? "dark" : ""}>
-      <body className="min-h-screen bg-white text-gray-900 antialiased dark:bg-black dark:text-gray-100">
-        <div className="mx-auto max-w-3xl px-6 py-6">
+    <html lang="en">
+      <body
+        className={`min-h-screen transition-colors duration-300 ${
+          isDark ? "bg-zinc-900 text-zinc-100" : "bg-zinc-50 text-zinc-900"
+        }`}
+      >
+        <div className="max-w-3xl mx-auto px-6 py-10 space-y-10">
           <Header />
-          <main className="mt-8">{children}</main>
+          <main>{children}</main>
         </div>
       </body>
     </html>

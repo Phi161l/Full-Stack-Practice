@@ -2,20 +2,18 @@ import Link from "next/link";
 
 export default function Header() {
   return (
-    <header className="flex items-center justify-between rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-sm dark:border-gray-800 dark:bg-gray-900">
-      <div className="text-sm font-semibold tracking-tight text-gray-900 dark:text-gray-100">
-        UserPrefs
-      </div>
-      <nav className="flex items-center gap-4 text-sm">
+    <header className="flex justify-between items-center border-b border-zinc-200 dark:border-zinc-800 pb-4">
+      <div className="text-2xl font-bold tracking-tight">UserPrefs</div>
+      <nav className="flex gap-6 text-sm font-medium">
         <Link
-          className="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
           href="/"
+          className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
         >
           Home
         </Link>
         <Link
-          className="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
           href="/settings"
+          className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
         >
           Settings
         </Link>
