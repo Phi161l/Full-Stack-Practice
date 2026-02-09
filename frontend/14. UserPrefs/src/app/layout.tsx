@@ -2,24 +2,20 @@ import Header from "@/src/components/Header";
 import { getPrefs } from "@/src/lib/prefsStores";
 import "./globals.css";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   const prefs = getPrefs();
-  const isDark = prefs.theme === "dark";
 
   return (
-    <html lang="en">
+    <html lang="en" className={prefs.theme === "dark" ? "dark" : "light"}>
       <body
-        className={`min-h-screen transition-colors duration-300 ${
-          isDark ? "bg-zinc-900 text-zinc-100" : "bg-zinc-50 text-zinc-900"
-        }`}
+        className={`min-h-screen antialiased transition-colors duration-300 
+          ${prefs.theme === "dark" 
+            ? "bg-zinc-950 text-zinc-50" 
+            : "bg-zinc-50 text-zinc-900"}`}
       >
-        <div className="max-w-3xl mx-auto px-6 py-10 space-y-10">
+        <div className="mx-auto max-w-3xl px-6 py-6">
           <Header />
-          <main>{children}</main>
+          <main className="mt-8">{children}</main>
         </div>
       </body>
     </html>
