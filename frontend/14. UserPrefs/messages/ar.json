@@ -1,0 +1,13 @@
+{
+  "HomePage": {
+    "welcome": "مرحباً",
+    "notifications": "تم تفعيل الإشعارات",
+    "theme": "السمة",
+    "language": "اللغة"
+  },
+  "SettingsPage": {
+    "title": "إعدادات المستخدم",
+    "saved": "تم حفظ التفضيلات!",
+    "notifications": "تفعيل الإشعارات"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "HomePage": {
+    "welcome": "Welcome",
+    "notifications": "Notifications are enabled",
+    "theme": "Theme",
+    "language": "Language"
+  },
+  "SettingsPage": {
+    "title": "User Settings",
+    "saved": "Preferences saved!",
+    "notifications": "Enable notifications"
+  }
+}

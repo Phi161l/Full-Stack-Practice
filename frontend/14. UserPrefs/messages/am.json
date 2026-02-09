@@ -1,0 +1,13 @@
+{
+  "HomePage": {
+    "welcome": "እንኳን ደህና መጡ",
+    "notifications": "ማሳወቂያዎች ተፈቅደዋል",
+    "theme": "ቅርጸ-ቀለም",
+    "language": "ቋንቋ"
+  },
+  "SettingsPage": {
+    "title": "የተጠቃሚ ቅንብሮች",
+    "saved": "ቅንብሮች ተቀመጡ!",
+    "notifications": "ማሳወቂያዎችን አስችል"
+  }
+}
