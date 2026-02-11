@@ -8,6 +8,8 @@
   "SettingsPage": {
     "title": "User Settings",
     "saved": "Preferences saved!",
-    "notifications": "Enable notifications"
+    "notifications": "Enable notifications",
+    "language": "Language",
+    "theme": "Theme"
   }
 }

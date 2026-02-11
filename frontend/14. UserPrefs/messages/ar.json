@@ -8,6 +8,8 @@
   "SettingsPage": {
     "title": "إعدادات المستخدم",
     "saved": "تم حفظ التفضيلات!",
-    "notifications": "تفعيل الإشعارات"
+    "notifications": "تفعيل الإشعارات",
+    "language": "اللغة",
+    "theme": "السمة"
   }
 }
