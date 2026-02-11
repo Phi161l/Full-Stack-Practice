@@ -1,19 +1,15 @@
 'use client';
-
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 
 type Theme = 'light' | 'dark';
 
-interface ThemeContextType {
+const ThemeContext = createContext<{
   theme: Theme;
-  setTheme: (theme: Theme) => void;
-}
-
-const ThemeContext = createContext<ThemeContextType>({
+  setTheme: (t: Theme) => void;
+}>({
   theme: 'light',
   setTheme: () => {}
 });
-
 
 export function ThemeProvider({
   children,
@@ -24,10 +20,9 @@ export function ThemeProvider({
 }) {
   const [theme, setTheme] = useState<Theme>(defaultTheme);
 
-  // Update <html> class when theme changes
+  // Apply theme to <html> instantly when it changes
   useEffect(() => {
-    const html = document.documentElement;
-    html.classList.toggle('dark', theme === 'dark');
+    document.documentElement.classList.toggle('dark', theme === 'dark');
   }, [theme]);
 
   return (
