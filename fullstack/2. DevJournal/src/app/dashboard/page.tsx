@@ -10,6 +10,8 @@ export default function Dashboard() {
   const { data: session } = useSession();
   const { data, mutate } = useSWR("/api/journal", fetcher);
 
+  console.log(data)
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 

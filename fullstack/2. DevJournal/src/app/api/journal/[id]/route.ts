@@ -1,23 +1,26 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/src/lib/db";
 import { Journal } from "@/src/models/Journal";
-import { getServerSession } from "next-auth";
+import { getServerSession, Session } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/route";
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   await connectDB();
 
-  const session = await getServerSession(authOptions as any);
+  const session = (await getServerSession(
+    authOptions as any,
+  )) as Session | null;
+
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   await Journal.findOneAndDelete({
     _id: params.id,
-    user: session.user.id,
+    user: session.user?.email,
   });
 
   return NextResponse.json({ message: "Deleted" });

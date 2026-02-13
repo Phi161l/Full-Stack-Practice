@@ -7,12 +7,15 @@ import { authOptions } from "../auth/[...nextauth]/route";
 export async function GET() {
   await connectDB();
 
-  const session = await getServerSession(authOptions as any);
+  const session = (await getServerSession(
+    authOptions as any,
+  )) as Session | null;
+
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const journals = await Journal.find({ user: session.user.id }).sort({
+  const journals = await Journal.find({ user: session.user?.email }).sort({
     createdAt: -1,
   });
 
@@ -22,8 +25,11 @@ export async function GET() {
 export async function POST(req: Request) {
   await connectDB();
 
-//   const session = await getServerSession(authOptions as any);
-    const session = (await getServerSession(authOptions as any)) as Session | null;
+  //   const session = await getServerSession(authOptions as any);
+  const session = (await getServerSession(
+    authOptions as any,
+  )) as Session | null;
+
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -33,7 +39,7 @@ export async function POST(req: Request) {
   const journal = await Journal.create({
     title,
     content,
-    user: session.user.id,
+    user: session.user?.email,
   });
 
   return NextResponse.json(journal);
