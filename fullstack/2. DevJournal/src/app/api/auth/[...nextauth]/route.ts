@@ -4,7 +4,9 @@ import { connectDB } from "@/src/lib/db";
 import { User } from "@/src/models/User";
 import bcrypt from "bcrypt";
 
-const handler = NextAuth({
+
+// NextAuth configuration: sets up credentials provider, JWT sessions, and user authentication logic
+export const authOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -12,15 +14,14 @@ const handler = NextAuth({
         email: {},
         password: {},
       },
-      async authorize(credentials) {
+      async authorize(credentials: any) {
         await connectDB();
 
-        const user = await User.findOne({ email: credentials?.email });
-
+        const user = await User.findOne({ email: credentials.email });
         if (!user) throw new Error("Invalid credentials");
 
         const isMatch = await bcrypt.compare(
-          credentials!.password,
+          credentials.password,
           user.password
         );
 
@@ -34,10 +35,10 @@ const handler = NextAuth({
       },
     }),
   ],
-  session: {
-    strategy: "jwt",
-  },
+  session: { strategy: "jwt" },
   secret: process.env.NEXTAUTH_SECRET,
-});
+};
+
+const handler = NextAuth(authOptions as any);
 
 export { handler as GET, handler as POST };
