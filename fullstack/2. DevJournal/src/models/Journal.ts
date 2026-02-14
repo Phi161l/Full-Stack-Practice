@@ -5,7 +5,8 @@ const JournalSchema = new Schema(
     title: { type: String, required: true },
     content: { type: String, required: true },
     user: {
-      type: Schema.Types.ObjectId,
+      // type: Schema.Types.ObjectId,
+      type: String,
       ref: "User",
       required: true,
     },

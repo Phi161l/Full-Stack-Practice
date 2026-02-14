@@ -4,7 +4,6 @@ import { connectDB } from "@/src/lib/db";
 import { User } from "@/src/models/User";
 import bcrypt from "bcrypt";
 
-
 // NextAuth configuration: sets up credentials provider, JWT sessions, and user authentication logic
 export const authOptions = {
   providers: [
@@ -22,7 +21,7 @@ export const authOptions = {
 
         const isMatch = await bcrypt.compare(
           credentials.password,
-          user.password
+          user.password,
         );
 
         if (!isMatch) throw new Error("Invalid credentials");
@@ -37,6 +36,23 @@ export const authOptions = {
   ],
   session: { strategy: "jwt" },
   secret: process.env.NEXTAUTH_SECRET,
+  callbacks: {
+    // Save user.id in the JWT token
+    async jwt({ token, user }: any) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+
+    // Expose user.id in session.user
+    async session({ session, token }: any) {
+      if (session.user) {
+        session.user.id = token.id; // now session.user.id exists
+      }
+      return session;
+    },
+  },
 };
 
 const handler = NextAuth(authOptions as any);

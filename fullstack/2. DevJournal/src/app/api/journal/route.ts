@@ -15,7 +15,10 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const journals = await Journal.find({ user: session.user?.email }).sort({
+    console.log(session)
+
+
+  const journals = await Journal.find({ user: session.user?.email}).sort({
     createdAt: -1,
   });
 

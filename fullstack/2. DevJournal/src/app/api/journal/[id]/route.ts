@@ -18,8 +18,10 @@ export async function DELETE(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  const id  = (await params).id;
+
   await Journal.findOneAndDelete({
-    _id: params.id,
+    _id: id,
     user: session.user?.email,
   });
 
