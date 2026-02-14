@@ -30,14 +30,29 @@ export default function Dashboard() {
   };
 
   const deleteJournal = async (id: string) => {
-    await fetch(`/api/journal/${id}`, {
-      method: "DELETE",
-    });
-    mutate();
+    try {
+      const res = await fetch(`/api/journal/${id}`, {
+        method: "DELETE",
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        // If the API returned an error (403, 401, etc.)
+        alert(data.error || "Something went wrong");
+        return;
+      }
+
+      // Success: update local data
+      mutate();
+    } catch (err) {
+      console.error("Failed to delete journal:", err);
+      alert("Network error. Try again.");
+    }
   };
 
   return (
-<div className="p-10 space-y-6 bg-white dark:bg-gray-900 min-h-screen text-black dark:text-white">
+    <div className="p-10 space-y-6 bg-white dark:bg-gray-900 min-h-screen text-black dark:text-white">
       <div className="flex justify-between">
         <h1 className="text-2xl">Welcome {session.user?.name}</h1>
         <button onClick={toggleTheme} className="border px-4 py-2">

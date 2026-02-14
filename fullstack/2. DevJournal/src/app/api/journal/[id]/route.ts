@@ -18,12 +18,18 @@ export async function DELETE(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const id  = (await params).id;
+  const id = (await params).id;
 
-  await Journal.findOneAndDelete({
+  const deletedJournal = await Journal.findOneAndDelete({
     _id: id,
     user: session.user?.email,
   });
 
+  if (!deletedJournal) {
+    return NextResponse.json(
+      { error: "You cannot delete someone else's journal" },
+      { status: 403 },
+    );
+  }
   return NextResponse.json({ message: "Deleted" });
 }
