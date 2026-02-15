@@ -36,7 +36,9 @@ SmartList is a learning-focused Next.js project demonstrating **senior-level fro
  ┃ ┣ 📜pagination.ts@
  ┃ ┗ 📜rateLimiter.ts
  ┗ 📂types
- ┃ ┗ 📜item.ts
+ ┃ ┗ 📜item.
+ 
+```
 
 
  ---
