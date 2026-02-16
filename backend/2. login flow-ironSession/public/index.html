@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Manual Login Test</title>
+  </head>
+  <body>
+    <h2>Login</h2>
+
+    <div >
+      <input id="email" placeholder="Email" value="john@example.com" /> <br> <br>
+      <input id="password" placeholder="Password" value="123456" /> <br> <br>
+      <button onclick="login()">Login</button> <br> <br>
+
+      <button onclick="check()">Check Session</button> 
+    </div>
+
+    <pre id="result"></pre>
+
+    <script>
+      async function login() {
+        const res = await fetch("http://localhost:3005/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value,
+          }),
+          credentials: "include",
+        });
+
+        const data = await res.json();
+        document.getElementById("result").innerText = JSON.stringify(
+          data,
+          null,
+          2,
+        );
+      }
+
+      async function check() {
+        const res = await fetch("http://localhost:3005/me", {
+          credentials: "include",
+        });
+
+        const data = await res.json();
+        document.getElementById("result").innerText = JSON.stringify(
+          data,
+          null,
+          2,
+        );
+      }
+    </script>
+  </body>
+</html>
