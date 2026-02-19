@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function RegisterPage() {
@@ -8,16 +10,24 @@ export default function RegisterPage() {
     email: "",
     password: "",
   });
+  const router = useRouter()
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    await fetch("/api/register", {
+    const res = await fetch("/api/register", {
       method: "POST",
       body: JSON.stringify(form),
     });
 
-    alert("Registered!");
+    const data = res.json();
+    if (!res.ok) {
+      alert("Registration failed");
+      return;
+    }
+    router.push("/login")
+
+
   };
 
   return (
@@ -28,17 +38,21 @@ export default function RegisterPage() {
       <input
         placeholder="Name"
         onChange={(e) => setForm({ ...form, name: e.target.value })}
+        required
       />
       <input
         placeholder="Email"
         onChange={(e) => setForm({ ...form, email: e.target.value })}
+        required
       />
       <input
         type="password"
         placeholder="Password"
         onChange={(e) => setForm({ ...form, password: e.target.value })}
+        required
       />
       <button className="bg-black text-white p-2">Register</button>
+      <Link href="/login"> Login here </Link>
     </form>
   );
 }

@@ -11,7 +11,7 @@ export default function Dashboard() {
   const { data: session } = useSession();
   const { data, mutate } = useSWR("/api/journal", fetcher);
 
-  const { toggleTheme } = useTheme();
+  const {toggleTheme} = useTheme();
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -19,6 +19,10 @@ export default function Dashboard() {
   if (!session) return <p>Not logged in</p>;
 
   const createJournal = async () => {
+    if (!title || !content) {
+      alert("Title and Content are required");
+      return;
+    }
     await fetch("/api/journal", {
       method: "POST",
       body: JSON.stringify({ title, content }),
@@ -60,7 +64,14 @@ export default function Dashboard() {
         </button>
       </div>
 
-      <button onClick={() => signOut()}>Logout</button>
+      <div className="flex justify-end">
+        <button
+          onClick={() => signOut()}
+          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+        >
+          Logout
+        </button>
+      </div>
 
       <div className="space-y-2">
         <input
@@ -68,12 +79,14 @@ export default function Dashboard() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           className="border p-2 block"
+          required
         />
         <textarea
           placeholder="Content"
           value={content}
           onChange={(e) => setContent(e.target.value)}
           className="border p-2 block"
+          required
         />
         <button onClick={createJournal} className="bg-black text-white p-2">
           Add Journal

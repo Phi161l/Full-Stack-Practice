@@ -3,6 +3,7 @@
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -34,13 +35,16 @@ export default function LoginPage() {
       <input
         placeholder="Email"
         onChange={(e) => setForm({ ...form, email: e.target.value })}
+        required
       />
       <input
         type="password"
         placeholder="Password"
         onChange={(e) => setForm({ ...form, password: e.target.value })}
+        required
       />
       <button className="bg-black text-white p-2">Login</button>
+      <Link href="/register"> dont register? register here </Link>
     </form>
   );
 }

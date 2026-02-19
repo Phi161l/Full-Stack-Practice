@@ -15,6 +15,7 @@ const ThemeContext = createContext<ThemeContextType | null>(null);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>("light");
+  console.log(theme)
 
   // Load saved theme
   useEffect(() => {
@@ -33,6 +34,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
+    console.log("hello")
+    console.log(theme)
   };
 
   return (
