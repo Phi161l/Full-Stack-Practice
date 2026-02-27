@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Protected Page</title>
+</head>
+<body>
+  <h1>Welcome! You are logged in.</h1>
+  <form id="logoutForm">
+    <button type="submit">Logout</button>
+  </form>
+
+  <script>
+    const form = document.getElementById("logoutForm");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      await fetch("/logout", { method: "POST" });
+      window.location.href = "/login.html";
+    });
+  </script>
+</body>
+</html>

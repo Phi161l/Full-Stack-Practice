@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Login</title>
+  </head>
+
+  <body>
+    <h1>Login Page</h1>
+    <form id="loginForm">
+      <input type="email" placeholder="Email" id="email" required />
+      <br /><br />
+      <input type="password" placeholder="Password" id="password" required />
+      <br /><br />
+      <button type="submit">Login</button>
+    </form>
+    <p id="message"></p>
+
+    <script>
+      const form = document.getElementById("loginForm");
+      const message = document.getElementById("message");
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const res = await fetch("/login", {
+          // use relative path!
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value,
+          }),
+        });
+
+        if (res.ok) {
+          window.location.href = "/protected";
+        } else {
+          const data = await res.json();
+          message.innerText = data.message;
+        }
+      });
+    </script>
+  </body>
+</html>
