@@ -8,20 +8,23 @@ const client = new Client({
   port: 5432,
   user: "testuser",
   password: "testpass",
-  database: "mydb"
+  database: "mydb",
 });
 
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 });
 
+// Ask function returning a Promise
 function ask(question) {
-  return new Promise(resolve => rl.question(question, resolve));
+  return new Promise(function (resolve) {
+    rl.question(question, (answer) => resolve(answer));
+  });
 }
 
+// Main menu
 async function menu() {
-
   console.log("\nChoose operation:");
   console.log("1. Insert user");
   console.log("2. View users");
@@ -32,73 +35,119 @@ async function menu() {
   const choice = await ask("Enter choice: ");
 
   switch (choice) {
-
     case "1":
+      // INSERT user with transaction & validation
       const name = await ask("Enter name: ");
-      const age = await ask("Enter age: ");
 
-      await client.query(
-        "INSERT INTO users(name, age) VALUES($1,$2)",
-        [name, age]
-      );
+      let age;
+      while (true) {
+        const ageInput = await ask("Enter age: ");
+        age = parseInt(ageInput);
+        if (!isNaN(age) && age > 0) break;
+        console.log("⚠️ Please enter a valid positive number for age.");
+      }
 
-      console.log("✅ User inserted");
+      try {
+        await client.query("BEGIN");
+        await client.query("INSERT INTO users(name, age) VALUES($1,$2)", [
+          name,
+          age,
+        ]);
+        await client.query("COMMIT");
+        console.log("✅ User inserted (transaction committed)");
+      } catch (err) {
+        await client.query("ROLLBACK");
+        console.log("❌ Transaction failed, rolled back:", err.message);
+      }
       break;
 
     case "2":
-      const res = await client.query("SELECT * FROM users");
-      console.table(res.rows);
+      // VIEW all users
+      try {
+        const res = await client.query("SELECT * FROM users");
+        console.table(res.rows);
+      } catch (err) {
+        console.log("❌ Error fetching users:", err.message);
+      }
       break;
 
     case "3":
+      // UPDATE user age with transaction & validation
       const uname = await ask("Enter name to update: ");
-      const newAge = await ask("Enter new age: ");
 
-      await client.query(
-        "UPDATE users SET age=$1 WHERE name=$2",
-        [newAge, uname]
-      );
+      let newAge;
+      while (true) {
+        const ageInput = await ask("Enter new age: ");
+        newAge = parseInt(ageInput);
+        if (!isNaN(newAge) && newAge > 0) break;
+        console.log("⚠️ Please enter a valid positive number for age.");
+      }
 
-      console.log("✅ User updated");
+      try {
+        await client.query("BEGIN");
+        const result = await client.query(
+          "UPDATE users SET age=$1 WHERE name=$2",
+          [newAge, uname]
+        );
+        if (result.rowCount === 0) throw new Error("User not found");
+        await client.query("COMMIT");
+        console.log("✅ User updated (transaction committed)");
+      } catch (err) {
+        await client.query("ROLLBACK");
+        console.log("❌ Transaction failed, rolled back:", err.message);
+      }
       break;
 
     case "4":
+      // DELETE user with transaction
       const delName = await ask("Enter name to delete: ");
 
-      await client.query(
-        "DELETE FROM users WHERE name=$1",
-        [delName]
-      );
-
-      console.log("✅ User deleted");
+      try {
+        await client.query("BEGIN");
+        const result = await client.query(
+          "DELETE FROM users WHERE name=$1",
+          [delName]
+        );
+        if (result.rowCount === 0) throw new Error("User not found");
+        await client.query("COMMIT");
+        console.log("✅ User deleted (transaction committed)");
+      } catch (err) {
+        await client.query("ROLLBACK");
+        console.log("❌ Transaction failed, rolled back:", err.message);
+      }
       break;
 
     case "5":
-      console.log("Goodbye");
+      console.log("Goodbye!");
       rl.close();
       await client.end();
       process.exit();
 
     default:
-      console.log("Invalid option");
+      console.log("⚠️ Invalid option");
   }
 
-  menu(); // show menu again
+  menu(); // Loop menu again
 }
 
+// Main function
 async function main() {
+  try {
+    await client.connect();
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS users(
+        id SERIAL PRIMARY KEY,
+        name TEXT NOT NULL,
+        age INT NOT NULL
+      )
+    `);
 
-  await client.connect();
-
-  await client.query(`
-    CREATE TABLE IF NOT EXISTS users(
-      id SERIAL PRIMARY KEY,
-      name TEXT NOT NULL,
-      age INT NOT NULL
-    )
-  `);
-
-  menu();
+    menu();
+  } catch (err) {
+    console.log("❌ Error initializing app:", err.message);
+    rl.close();
+    await client.end();
+  }
 }
 
 main();
