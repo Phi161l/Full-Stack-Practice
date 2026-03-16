@@ -1,0 +1,77 @@
+# User Management CLI App
+
+A simple **Node.js command-line application** for managing users in a **PostgreSQL database**.  
+This project demonstrates **async/await, transactions, input validation, and Prisma ORM**.
+
+---
+
+## Features
+
+- Insert, view, update, and delete users
+- Input validation for user age
+- Database transactions with automatic rollback on error
+- Async user input using Node.js `readline`
+- Type-safe database access with Prisma ORM
+- Continuous menu loop for CLI interaction
+
+---
+
+## Prerequisites
+
+- Node.js v18+
+- PostgreSQL running locally
+- NPM installed
+
+---
+
+## Usage
+
+Run the application:
+
+```bash
+node index.js
+```
+
+Menu shown in the CLI:
+
+```
+1. Insert user
+2. View users
+3. Update user age
+4. Delete user
+5. Exit
+```
+
+---
+
+## Key Concepts
+
+### Async Input
+
+```js
+function ask(question) {
+  return new Promise(resolve => rl.question(question, resolve));
+}
+```
+
+### Transaction Example
+
+```js
+await prisma.$transaction(async (tx) => {
+  await tx.user.create({
+    data: { name, age }
+  });
+});
+```
+
+---
+
+## Tech Stack
+
+- **Node.js**
+- **PostgreSQL**
+- **driver**
+- **Readline**
+
+---
+
