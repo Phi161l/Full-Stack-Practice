@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id             Int     @id @default(autoincrement())
+  name           String
+  email          String  @unique
+  membershipDate DateTime @default(now())
+  isActive       Boolean @default(true)
+  loans          Loan[]
+}
+
+model Book {
+  id            Int       @id @default(autoincrement())
+  title         String
+  author        String
+  isbn          String    @unique
+  publishedYear Int?
+  genre         String?
+  copies        BookCopy[]
+}
+
+model BookCopy {
+  id       Int   @id @default(autoincrement())
+  bookId   Int
+  copyNumber Int?
+  status   String  @default("Available")
+  book     Book    @relation(fields: [bookId], references: [id])
+  loans    Loan[]
+}
+
+model Loan {
+  id         Int       @id @default(autoincrement())
+  userId     Int
+  bookCopyId Int
+  borrowDate DateTime  @default(now())
+  dueDate    DateTime
+  returnDate DateTime?
+  user       User      @relation(fields: [userId], references: [id])
+  bookCopy   BookCopy  @relation(fields: [bookCopyId], references: [id])
+}
