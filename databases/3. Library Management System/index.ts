@@ -1,6 +1,6 @@
 import "dotenv/config";
 
-import { PrismaClient } from "../generated/prisma/client";
+import { PrismaClient } from "./generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { select } from "@inquirer/prompts";
 
@@ -151,3 +151,6 @@ export async function returnBook() {
 
   console.log("Book returned successfully!");
 }
+
+
+mainMenu();

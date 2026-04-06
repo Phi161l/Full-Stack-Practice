@@ -11,6 +11,7 @@ const adapter = new PrismaPg({
 
 const prisma = new PrismaClient({ adapter });
 
+
 async function main() {
   // Create Users
   const user1 = await prisma.user.create({
