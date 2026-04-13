@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+model User {
+  id            Int       @id @default(autoincrement())
+  name          String
+  email         String    @unique
+  isVerified    Boolean   @default(false)
+  role          String    @default("USER")
+  createdAt     DateTime  @default(now())
+  lastLoginAt   DateTime?
+
+  accounts      Account[]
+  posts         Post[]
+  comments      Comment[]
+  likes         Like[]
+  resetTokens   PasswordResetToken[]
+}
+
+model Account {
+  id           Int      @id @default(autoincrement())
+  userId       Int
+  provider     String
+  providerId   String
+  password     String?
+
+  user         User     @relation(fields: [userId], references: [id])
+
+  @@unique([provider, providerId])
+}
+
+model Post {
+  id        Int       @id @default(autoincrement())
+  title     String
+  content   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  authorId  Int
+  author    User      @relation(fields: [authorId], references: [id])
+
+  comments  Comment[]
+  likes     Like[]
+}
+
+model Comment {
+  id        Int       @id @default(autoincrement())
+  content   String
+  createdAt DateTime  @default(now())
+
+  authorId  Int
+  postId    Int
+
+  author    User      @relation(fields: [authorId], references: [id])
+  post      Post      @relation(fields: [postId], references: [id])
+}
+
+model Like {
+  userId    Int
+  postId    Int
+  createdAt DateTime @default(now())
+
+  user      User @relation(fields: [userId], references: [id])
+  post      Post @relation(fields: [postId], references: [id])
+
+  @@id([userId, postId])
+}
+
+model PasswordResetToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  userId    Int
+  expiresAt DateTime
+
+  user      User     @relation(fields: [userId], references: [id])
+}
