@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
 import resetRoutes from "./routes/resetRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
-
+import commentRoutes from "./routes/commentRoutes";
 
 dotenv.config();
 
@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/auth", resetRoutes);
 app.use("/api/posts", postRoutes);
-
+app.use("/api/comments", commentRoutes);
 
 
 const PORT = process.env.PORT || 3000;
