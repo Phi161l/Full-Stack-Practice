@@ -1,7 +1,9 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider     = "prisma-client"
+  output       = "../generated/prisma"
+  moduleFormat = "cjs"
 }
+
 
 datasource db {
   provider = "postgresql"
@@ -29,7 +31,7 @@ model Account {
   userId       Int
   provider     String
   providerId   String
-  password     String?
+  password     String
 
   user         User     @relation(fields: [userId], references: [id])
 

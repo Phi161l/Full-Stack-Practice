@@ -1,6 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
+import resetRoutes from "./routes/resetRoutes.js";
+import postRoutes from "./routes/postRoutes.js";
 
 
 dotenv.config();
@@ -12,7 +14,12 @@ app.get("/", (req, res) => {
   res.send("API is running...");
 });
 
+
 app.use("/api/auth", authRoutes);
+app.use("/api/auth", resetRoutes);
+app.use("/api/posts", postRoutes);
+
+
 
 const PORT = process.env.PORT || 3000;
 

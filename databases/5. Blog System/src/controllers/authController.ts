@@ -1,8 +1,9 @@
 import { prisma } from "../prisma.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { Request, Response } from "express";
 
-export const register = async (req, res) => {
+export const register = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
 
   try {
@@ -34,14 +35,12 @@ export const register = async (req, res) => {
     });
 
     res.json(user);
-  } catch (err) {
+  } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
 };
 
-
-
-export const login = async (req, res) => {
+export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   try {
@@ -68,12 +67,12 @@ export const login = async (req, res) => {
     // generate token
     const token = jwt.sign(
       { userId: account.user.id },
-      process.env.JWT_SECRET,
+      process.env.JWT_SECRET as string,
       { expiresIn: "1d" }
     );
 
     res.json({ token, user: account.user });
-  } catch (err) {
+  } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
 };
