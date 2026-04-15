@@ -2,6 +2,7 @@ import { prisma } from "../prisma.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { Request, Response } from "express";
+import { generateAccessToken, generateRefreshToken } from "../utils/token.js";
 
 export const register = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
@@ -64,15 +65,39 @@ export const login = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    // generate token
-    const token = jwt.sign(
-      { userId: account.user.id },
-      process.env.JWT_SECRET as string,
-      { expiresIn: "1d" }
-    );
+    // generate accessToken
+    const accessToken = generateAccessToken(account.user.id, account.user.role);
+    const refreshToken = generateRefreshToken();
 
-    res.json({ token, user: account.user });
+    await prisma.refreshToken.create({
+      data: {
+        token: refreshToken,
+        userId: account.user.id,
+        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+      },
+    });
+
+    res.json({ accessToken, refreshToken,  user: account.user });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
 };
+
+
+
+export const refreshAccessToken = async (req: Request, res: Response) => {
+  const { refreshToken } = req.body;
+
+  const stored = await prisma.refreshToken.findUnique({
+    where: { token: refreshToken },
+  });
+
+  if (!stored || stored.expiresAt < new Date()) {
+    return res.status(403).json({ message: "Invalid refresh token" });
+  }
+
+  const accessToken = generateAccessToken(stored.userId, "USER");
+
+  res.json({ accessToken });
+};
+
