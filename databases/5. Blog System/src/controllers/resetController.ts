@@ -2,6 +2,7 @@ import { prisma } from "../prisma.js";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
+import { sendEmail } from "../utils/sendEmail.js";
 
 // Forgot Password
 export const forgotPassword = async (req: Request, res: Response) => {
@@ -23,11 +24,15 @@ export const forgotPassword = async (req: Request, res: Response) => {
     },
   });
 
-  console.log("RESET LINK:");
-  console.log(`http://localhost:3000/reset-password?token=${token}`);
+  // console.log("RESET LINK:");
+  // console.log(`http://localhost:3000/reset-password?token=${token}`);
+
+  const resetLink = `http://localhost:3000/reset-password?token=${token}`;
+  await sendEmail( user.email,"Password Reset", `Click this link to reset your password: ${resetLink}`
+);
 
   res.json({ message: "Reset link sent to email" });
-};
+};  
 
 
 // Reset Password
