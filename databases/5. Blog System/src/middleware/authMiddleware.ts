@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import rateLimit from "express-rate-limit";
+
 
 interface JwtPayload {
   userId: number;
@@ -36,3 +38,10 @@ export const authMiddleware = ( req: Request, res: Response, next: NextFunction)
     return res.status(401).json({ message: "Invalid token" });
   }
 };
+
+
+export const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 min
+  max: 10, // max 10 requests
+  message: "Too many attempts, try again later",
+});

@@ -3,9 +3,16 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { Request, Response } from "express";
 import { generateAccessToken, generateRefreshToken } from "../utils/token.js";
+import validator from "validator";
 
 export const register = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
+
+  if (!validator.isStrongPassword(password)) {
+    return res.status(400).json({
+      message: "Password not strong enough",
+    });
+  }
 
   try {
     // check if user exists
@@ -77,13 +84,11 @@ export const login = async (req: Request, res: Response) => {
       },
     });
 
-    res.json({ accessToken, refreshToken,  user: account.user });
+    res.json({ accessToken, refreshToken, user: account.user });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
 };
-
-
 
 export const refreshAccessToken = async (req: Request, res: Response) => {
   const { refreshToken } = req.body;
@@ -100,4 +105,3 @@ export const refreshAccessToken = async (req: Request, res: Response) => {
 
   res.json({ accessToken });
 };
-
