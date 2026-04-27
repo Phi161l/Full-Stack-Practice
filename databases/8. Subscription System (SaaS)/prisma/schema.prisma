@@ -1,0 +1,87 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+enum BillingInterval {
+  MONTHLY
+  YEARLY
+}
+
+enum SubscriptionStatus {
+  TRIALING
+  ACTIVE
+  CANCELED
+  PAST_DUE
+  EXPIRED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+  REFUNDED
+}
+
+
+model User {
+  id            String         @id @default(uuid())
+  email         String         @unique
+
+  subscriptions Subscription[]
+  payments      Payment[]
+}
+
+model Plan {
+  id       String  @id @default(uuid())
+  name     String
+  price    Int
+  interval BillingInterval
+
+  subscriptions Subscription[]
+}
+
+model Subscription {
+  id                   String              @id @default(uuid())
+
+  userId               String
+  planId               String
+
+  status               SubscriptionStatus
+
+  startDate            DateTime @default(now())
+  endDate              DateTime?
+
+  currentPeriodStart   DateTime
+  currentPeriodEnd     DateTime
+
+  cancelAtPeriodEnd    Boolean @default(false)
+
+  user                 User @relation(fields: [userId], references: [id])
+  plan                 Plan @relation(fields: [planId], references: [id])
+
+  payments             Payment[]
+}
+
+model Payment {
+  id              String        @id @default(uuid())
+
+  userId          String
+  subscriptionId  String?
+
+  amount          Int
+  currency        String @default("USD")
+
+  status          PaymentStatus
+
+  createdAt       DateTime @default(now())
+
+  user            User @relation(fields: [userId], references: [id])
+  subscription    Subscription? @relation(fields: [subscriptionId], references: [id])
+}
+
