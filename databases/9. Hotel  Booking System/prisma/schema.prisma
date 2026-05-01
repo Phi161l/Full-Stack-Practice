@@ -1,0 +1,107 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+
+
+enum RoomStatus {
+  AVAILABLE
+  OCCUPIED
+  MAINTENANCE
+  CLEANING
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CHECKED_IN
+  CHECKED_OUT
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+model Guest {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String?
+  email     String?
+  createdAt DateTime @default(now())
+
+  bookings  Booking[]
+}
+
+model Staff {
+  id        String   @id @default(cuid())
+  name      String
+  email     String  @unique
+  role      String   // receptionist, admin, etc.
+  createdAt DateTime @default(now())
+
+  bookingsCreated Booking[] @relation("CreatedByStaff")
+}
+
+model Room {
+  id          String     @id @default(cuid())
+  number      String     @unique
+  type        String     // single, double, suite
+  capacity    Int
+  pricePerNight Float
+  status      RoomStatus @default(AVAILABLE)
+
+  bookings    Booking[]
+}
+
+model Booking {
+  id            String        @id @default(cuid())
+
+  guestId       String
+  guest         Guest         @relation(fields: [guestId], references: [id])
+
+  roomId        String
+  room          Room          @relation(fields: [roomId], references: [id])
+
+  createdById   String
+  createdBy     Staff         @relation("CreatedByStaff", fields: [createdById], references: [id])
+
+  checkIn       DateTime
+  checkOut      DateTime
+
+  status        BookingStatus @default(PENDING)
+
+  totalAmount   Float?
+
+  payments      Payment[]
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([roomId, checkIn, checkOut])
+  @@index([guestId])
+}
+
+model Payment {
+  id          String        @id @default(cuid())
+
+  bookingId   String
+  booking     Booking      @relation(fields: [bookingId], references: [id])
+
+  amount      Float
+  method      String        // cash, card, mobile
+  status      PaymentStatus @default(PENDING)
+
+  paidAt      DateTime?
+
+  createdAt   DateTime @default(now())
+}
