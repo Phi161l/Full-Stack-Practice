@@ -1,15 +1,12 @@
-import app from "./app";
-import mongoose from "mongoose";
-
-const PORT = 5000;
+import app from "./app.js";
+import { env } from "./config/env.js";
+import connectDb from "./db/mongo.js";
 
 async function start() {
-  await mongoose.connect("mongodb://localhost:27017/chat-app");
+  await connectDb();
 
-  console.log("DB connected");
-
-  app.listen(PORT, () => {
-    console.log(`Server running on ${PORT}`);
+  app.listen(env.PORT, () => {
+    console.log(`Server running on port ${env.PORT}`);
   });
 }
 
