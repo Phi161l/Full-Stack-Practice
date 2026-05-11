@@ -7,4 +7,8 @@ export class TokenService {
       expiresIn: "7d",
     });
   }
+
+  static verifyToken(token: string ) {
+    return jwt.verify(token, env.JWT_SECRET!);
+  }
 }

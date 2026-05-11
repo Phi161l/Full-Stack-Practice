@@ -19,9 +19,28 @@ export class AuthService {
       password: hashedPassword,
     });
 
-    const token = TokenService.generateToken(
-      user._id.toString()
-    );
+    const token = TokenService.generateToken(user._id.toString());
+
+    return {
+      token,
+      user,
+    };
+  }
+
+  static async login(email: string, password: string) {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      throw new Error("Invalid credentials");
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      throw new Error("Invalid credentials");
+    }
+
+    const token = TokenService.generateToken(user._id.toString());
 
     return {
       token,
