@@ -1,5 +1,5 @@
-import Conversation from "../models/conversation.model";
-import Message from "../models/message.model";
+import Conversation from "../models/conversation.model.js";
+import Message from "../models/message.model.js";
 
 export class ChatService {
   static async createConversation(senderId: string, receiverId: string) {
