@@ -10,4 +10,10 @@ router.post(
   ChatController.createConversation
 );
 
+router.get(
+  "/messages/:conversationId",
+  authMiddleware,
+  ChatController.getMessages
+);
+
 export default router;
