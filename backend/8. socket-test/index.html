@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Socket Test</title>
+</head>
+<body>
+
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+
+<script>
+  const socket = io("http://localhost:5000");
+
+  socket.emit("message", "Hello");
+</script>
+
+</body>
+</html>
