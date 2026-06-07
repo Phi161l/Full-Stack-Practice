@@ -20,7 +20,7 @@ const server = new McpServer({
 
 // -----------------------------
 // Tool: create_note
-// -----------------------------
+// -----------------------------#
 server.tool(
   "create_note",
   {

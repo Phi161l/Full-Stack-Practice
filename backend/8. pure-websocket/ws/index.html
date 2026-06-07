@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+  <body>
+    <h2>WebSocket Demo</h2>
+
+    <button onclick="sendMessage()">Send</button>
+    <input id="msg" />
+
+    <ul id="list"></ul>
+
+    <script>
+      // connect to server
+      const ws = new WebSocket("ws://localhost:3000");
+
+      ws.onmessage = (event) => {
+        const li = document.createElement("li");
+        li.textContent = event.data;
+        document.getElementById("list").appendChild(li);
+      };
+
+      function sendMessage() {
+        const msg = document.getElementById("msg").value;
+        ws.send(msg);
+      }
+    </script>
+  </body>
+</html>

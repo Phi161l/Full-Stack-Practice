@@ -1,5 +1,5 @@
 {
-  "name": "8.-pure-websocket",
+  "name": "7.gym-management-system",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,10 +8,5 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "socket.io": "^4.8.3",
-    "socket.io-client": "^4.8.3",
-    "ws": "^8.21.0"
-  }
+  "license": "ISC"
 }
