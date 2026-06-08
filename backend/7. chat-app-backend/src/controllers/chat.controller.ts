@@ -1,7 +1,7 @@
 import type { Response } from "express";
 import type { AuthRequest } from "../middlewares/auth.middleware.js";
 import { ChatService } from "../services/chat.service.js";
-import Message from "../models/message.model";
+import Message from "../models/message.model.js";
 
 export class ChatController {
   static async createConversation(
