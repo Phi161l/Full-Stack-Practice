@@ -23,11 +23,7 @@ export class ChatService {
   }
 
   // create group chat
-  static async createGroup(
-    name: string,
-    adminId: string,
-    members: string[]
-  ) {
+  static async createGroup(name: string, adminId: string, members: string[]) {
     const conversation = await Conversation.create({
       name,
       admin: adminId,
@@ -38,16 +34,12 @@ export class ChatService {
     return conversation;
   }
 
-  static async sendMessage(
-    conversationId: string,
-    senderId: string,
-    text: string,
-  ) {
-    const message = await Message.create({
+  static async getMessages(conversationId: string) {
+    const message = await Message.find({
       conversation: conversationId,
-      sender: senderId,
-      text,
-    });
+    })
+      .populate("sender", "first_name email")
+      .sort({ createdAt: 1 });
 
     return message;
   }

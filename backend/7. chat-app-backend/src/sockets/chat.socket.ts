@@ -2,6 +2,7 @@ import { Server, Socket } from "socket.io";
 import Message from "../models/message.model.js";
 import Conversation from "../models/conversation.model.js";
 import { onlineUsers } from "./socketStore.js";
+import User from "../models/user.model.js";
 
 export const chatSocket = (io: Server, socket: Socket) => {
   console.log("User connected:", socket.id);
@@ -10,6 +11,9 @@ export const chatSocket = (io: Server, socket: Socket) => {
   socket.on("setup", (userId) => {
     onlineUsers.set(userId, socket.id);
     socket.join(userId);
+
+    // user online broadcast
+    io.emit("user_online", userId);
   });
 
   // STEP 2: join a conversation room
@@ -38,6 +42,22 @@ export const chatSocket = (io: Server, socket: Socket) => {
     io.to(conversationId).emit("receive_message", message);
   });
 
+  socket.on("mark_read", async (conversationId) => {
+    await Message.updateMany(
+      {
+        conversation: conversationId,
+        status: { $ne: "read" },
+      },
+      {
+        status: "read",
+      },
+    );
+
+    io.to(conversationId).emit("messages_read", {
+      conversationId,
+    });
+  });
+
   // STEP 4: typing indicator
   socket.on("typing", (conversationId) => {
     socket.to(conversationId).emit("user_typing");
@@ -48,10 +68,18 @@ export const chatSocket = (io: Server, socket: Socket) => {
   });
 
   // STEP 5: disconnect cleanup
-  socket.on("disconnect", () => {
+  socket.on("disconnect", async () => {
     for (const [userId, socketId] of onlineUsers) {
       if (socketId === socket.id) {
         onlineUsers.delete(userId);
+
+        io.emit("user_offline", userId);
+
+        // last seen update
+        await User.findByIdAndUpdate(userId, {
+          lastSeen: new Date(),
+        });
+
         break;
       }
     }
