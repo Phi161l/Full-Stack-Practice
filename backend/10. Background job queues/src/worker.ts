@@ -1,26 +1,25 @@
 import { Worker } from "bullmq";
-import { connection } from "./config/redis";
+import { redis } from "./config/redis";
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+const sleep = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
 
 new Worker(
   "email-queue",
   async (job) => {
-    console.log("Job started:", job.id);
+    console.log(`Job ${job.id} started`);
 
-    console.log("Preparing email...");
-
-    await sleep(5000); // simulate slow work (5 seconds)
+    await sleep(5000);
 
     console.log(`Sending email to ${job.data.email}`);
 
-    await sleep(2000); // simulate sending delay
+    await sleep(2000);
 
-    console.log("Email sent successfully");
+    console.log(`Job ${job.id} completed`);
   },
   {
-    connection,
-  },
+    connection: redis,
+  }
 );
 
 console.log("Worker running...");
