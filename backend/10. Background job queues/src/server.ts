@@ -4,13 +4,18 @@ import { emailQueue } from "./queue";
 const app = express();
 app.use(express.json());
 
-// 1. Create job
 app.post("/email", async (req, res) => {
   const { email } = req.body;
 
-  const job = await emailQueue.add("send-email", {
-    email,
-  });
+  const job = await emailQueue.add(
+    "send-email",
+    {
+      email,
+    },
+    {
+      attempts: 3,
+    }
+  );
 
   res.json({
     success: true,
@@ -18,7 +23,6 @@ app.post("/email", async (req, res) => {
   });
 });
 
-// 2. Check job status
 app.get("/jobs/:id", async (req, res) => {
   const job = await emailQueue.getJob(req.params.id);
 
@@ -33,6 +37,7 @@ app.get("/jobs/:id", async (req, res) => {
   res.json({
     id: job.id,
     state,
+    attemptsMade: job.attemptsMade,
   });
 });
 

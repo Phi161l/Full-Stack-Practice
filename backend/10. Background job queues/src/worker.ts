@@ -1,25 +1,30 @@
 import { Worker } from "bullmq";
 import { redis } from "./config/redis";
 
-const sleep = (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms));
-
-new Worker(
+const worker = new Worker(
   "email-queue",
   async (job) => {
-    console.log(`Job ${job.id} started`);
+    console.log(`Job ${job.id} - Attempt ${job.attemptsMade + 1}`);
 
-    await sleep(5000);
+    if (job.attemptsMade < 2) {
+      throw new Error("Simulated email service failure");
+    }
 
     console.log(`Sending email to ${job.data.email}`);
 
-    await sleep(2000);
-
-    console.log(`Job ${job.id} completed`);
+    console.log("Email sent successfully");
   },
   {
     connection: redis,
-  }
+  },
 );
+
+worker.on("completed", (job) => {
+  console.log(`Job ${job.id} completed`);
+});
+
+worker.on("failed", (job, err) => {
+  console.log(`Job ${job?.id} failed: ${err.message}`);
+});
 
 console.log("Worker running...");
