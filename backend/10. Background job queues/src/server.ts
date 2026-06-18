@@ -1,9 +1,11 @@
 import express from "express";
-import { emailQueue } from "./queue";
+import { emailQueue } from "./queues/emailQueue";
+import { imageQueue } from "./queues/imageQueue";
 
 const app = express();
 app.use(express.json());
 
+// Email Job
 app.post("/email", async (req, res) => {
   const { email } = req.body;
 
@@ -14,7 +16,7 @@ app.post("/email", async (req, res) => {
     },
     {
       attempts: 3,
-    }
+    },
   );
 
   res.json({
@@ -38,6 +40,18 @@ app.get("/jobs/:id", async (req, res) => {
     id: job.id,
     state,
     attemptsMade: job.attemptsMade,
+  });
+});
+
+// Image job
+app.post("/image", async (req, res) => {
+  const job = await imageQueue.add("resize-image", {
+    imageName: "photo.jpg",
+  });
+
+  res.json({
+    success: true,
+    jobId: job.id,
   });
 });
 
