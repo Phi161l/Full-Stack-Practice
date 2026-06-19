@@ -25,6 +25,7 @@ app.post("/email", async (req, res) => {
   });
 });
 
+
 app.get("/jobs/:id", async (req, res) => {
   const job = await emailQueue.getJob(req.params.id);
 
@@ -43,17 +44,41 @@ app.get("/jobs/:id", async (req, res) => {
   });
 });
 
-// Image job
-app.post("/image", async (req, res) => {
-  const job = await imageQueue.add("resize-image", {
-    imageName: "photo.jpg",
-  });
+
+// delayed email
+app.post("/delayed-email", async (_req, res) => {
+  const job = await emailQueue.add(
+    "send-email",
+    {
+      email: "future@example.com",
+    },
+    {
+      delay: 30000, // 30 seconds
+    }
+  );
 
   res.json({
     success: true,
     jobId: job.id,
   });
 });
+
+
+// Image job
+app.post("/image", async (req, res) => {
+  const job = await imageQueue.add(
+    "process-image",
+    {
+      fileName: req.body.fileName,
+    }
+  );
+
+  res.json({
+    success: true,
+    jobId: job.id,
+  });
+});
+
 
 app.listen(3000, () => {
   console.log("Server running on port 3000");
