@@ -1,6 +1,6 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider            = "prisma-client"
+  output              = "../generated/prisma"
   importFileExtension = "ts"
 }
 
@@ -8,17 +8,36 @@ datasource db {
   provider = "postgresql"
 }
 
-
-model Order {
-  id        String   @id @default(cuid())
-  amount    Int
-  status    OrderStatus @default(PENDING)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
 enum OrderStatus {
   PENDING
   PAID
   FAILED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+model Order {
+  id        String      @id @default(cuid())
+  amount    Int
+  status    OrderStatus @default(PENDING)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  payments  Payment[]
+}
+
+model Payment {
+  id                String        @id @default(cuid())
+  orderId           String
+  providerReference String?
+  checkoutUrl       String?
+  status            PaymentStatus @default(PENDING)
+
+  order Order @relation(fields: [orderId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
