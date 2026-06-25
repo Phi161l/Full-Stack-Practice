@@ -55,3 +55,12 @@ model Refund {
 
   createdAt DateTime @default(now())
 }
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  event     String
+  entityId  String
+  data      Json
+
+  createdAt DateTime @default(now())
+}

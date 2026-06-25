@@ -1,4 +1,5 @@
 import { prisma } from "../config/prisma";
+import { createAuditLog } from "./audit.service";
 import { refundPayment } from "./provider.service";
 
 export const createRefund = async (paymentId: string) => {
@@ -40,6 +41,8 @@ export const createRefund = async (paymentId: string) => {
       },
     }),
   ]);
+
+  await createAuditLog("REFUND_CREATED", payment.id, refund);
 
   return refund;
 };

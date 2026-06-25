@@ -1,4 +1,5 @@
 import { prisma } from "../config/prisma";
+import { createAuditLog } from "./audit.service";
 import { createCheckoutSession } from "./provider.service";
 
 export const initializePayment = async (orderId: string) => {
@@ -13,6 +14,8 @@ export const initializePayment = async (orderId: string) => {
       checkoutUrl: session.checkout_url,
     },
   });
+
+  await createAuditLog("PAYMENT_INITIALIZED", payment.id, payment);
 
   return payment;
 };

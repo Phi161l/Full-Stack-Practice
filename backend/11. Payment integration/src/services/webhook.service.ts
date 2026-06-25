@@ -1,5 +1,6 @@
 import { prisma } from "../config/prisma";
 import { paymentQueue } from "../queues/payment.queue";
+import { createAuditLog } from "./audit.service";
 
 export const handlePaymentWebhook = async (body: any) => {
   const { event, tx_ref } = body;
@@ -29,6 +30,8 @@ export const handlePaymentWebhook = async (body: any) => {
         data: { status: "PAID" },
       }),
     ]);
+
+    await createAuditLog("PAYMENT_SUCCESS", payment.id, payment);
 
     // 🔥 ADD QUEUE JOB HERE
     await paymentQueue.add(
@@ -60,6 +63,8 @@ export const handlePaymentWebhook = async (body: any) => {
         data: { status: "FAILED" },
       }),
     ]);
+
+    await createAuditLog("REFUND_CREATED", payment.id, payment);
 
     return;
   }
