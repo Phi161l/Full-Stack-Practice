@@ -31,9 +31,19 @@ export const handlePaymentWebhook = async (body: any) => {
     ]);
 
     // 🔥 ADD QUEUE JOB HERE
-    await paymentQueue.add("send-receipt", {
-      orderId: payment.orderId,
-    });
+    await paymentQueue.add(
+      "send-receipt",
+      {
+        orderId: payment.orderId,
+      },
+      {
+        attempts: 5,
+        backoff: {
+          type: "exponential",
+          delay: 2000,
+        },
+      },
+    );
 
     return;
   }
