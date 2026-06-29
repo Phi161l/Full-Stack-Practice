@@ -1,15 +1,87 @@
-# 12.-file-upload-service
+# File Upload Service
 
-To install dependencies:
+A backend service built with TypeScript, Express, Prisma, and Cloudinary to learn the fundamentals of file upload systems.
 
-```bash
-bun install
+## Features
+
+- Upload files
+- Validate file type and size
+- Store files in Cloudinary
+- Save file metadata in a database
+- Retrieve file information by ID
+- Download files by ID
+- Error handling and validation
+- Storage abstraction layer
+
+## Tech Stack
+
+- TypeScript
+- Express
+- Prisma
+- SQLite
+- Multer
+- Cloudinary
+
+## Project Structure
+
+```text
+src/
+├── config/
+├── controllers/
+├── middlewares/
+├── routes/
+├── services/
+├── lib/
+├── app.ts
+└── server.ts
 ```
 
-To run:
+## API Endpoints
 
-```bash
-bun run index.js
+### Upload File
+
+```http
+POST /upload
 ```
 
-This project was created using `bun init` in bun v1.3.13. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
+### Get File Metadata
+
+```http
+GET /files/:id
+```
+
+### Download File
+
+```http
+GET /files/:id/download
+```
+
+## Concepts Learned
+
+- Multipart form data
+- File uploads
+- Middleware
+- Database modeling
+- File metadata
+- Resource retrieval by ID
+- Validation and security
+- Error handling
+- Cloud storage integration
+- Storage abstraction
+
+## Run Locally
+
+```bash
+npm install
+npm run dev
+```
+
+## Environment Variables
+
+```env
+DATABASE_URL=
+
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+```
