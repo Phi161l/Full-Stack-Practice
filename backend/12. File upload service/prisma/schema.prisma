@@ -7,16 +7,20 @@ datasource db {
   provider = "postgresql"
 }
 
+
 model File {
-  id            Int      @id @default(autoincrement())
+  id           Int      @id @default(autoincrement())
 
-  filename      String
-  originalName  String
+  filename     String
+  originalName String
 
-  path          String
-  size          Int
+  path         String
+  size         Int
 
-  mimeType      String
+  mimeType     String
 
-  createdAt     DateTime @default(now())
+  cloudUrl     String?
+  publicId     String?
+
+  createdAt    DateTime @default(now())
 }

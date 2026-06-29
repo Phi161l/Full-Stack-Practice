@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { prisma } from "../lib/prisma.js";
+import {prisma} from "../lib/prisma.js";
+import { uploadToCloudinary } from "../services/storage.service.js";
 
 export const uploadFile = async (req: Request, res: Response) => {
   try {
@@ -11,6 +12,10 @@ export const uploadFile = async (req: Request, res: Response) => {
       });
     }
 
+    // Upload the local file to Cloudinary
+    const cloudFile = await uploadToCloudinary(file.path);
+
+    // Save metadata to the database
     const savedFile = await prisma.file.create({
       data: {
         filename: file.filename,
@@ -18,6 +23,8 @@ export const uploadFile = async (req: Request, res: Response) => {
         path: file.path,
         size: file.size,
         mimeType: file.mimetype,
+        cloudUrl: cloudFile.url,
+        publicId: cloudFile.publicId,
       },
     });
 
