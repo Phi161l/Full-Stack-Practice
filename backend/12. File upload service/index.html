@@ -3,9 +3,48 @@
   <body>
     <h2>File Upload Test</h2>
 
+    <!-- 1️⃣ UPLOAD -->
     <form action="http://localhost:3000/upload" method="POST" enctype="multipart/form-data">
       <input type="file" name="file" />
       <button type="submit">Upload</button>
     </form>
+
+    <hr />
+
+    <h2>Get File Info</h2>
+
+    <!-- 2️⃣ GET FILE INFO -->
+    <input id="fileIdInfo" placeholder="Enter file id" />
+    <button onclick="getFileInfo()">Get Info</button>
+
+    <pre id="info"></pre>
+
+    <hr />
+
+    <h2>Download File</h2>
+
+    <!-- 3️⃣ DOWNLOAD FILE -->
+    <input id="fileIdDownload" placeholder="Enter file id" />
+    <button onclick="downloadFile()">Download</button>
+
+    <script>
+      // GET FILE INFO
+      function getFileInfo() {
+        const id = document.getElementById("fileIdInfo").value;
+
+        fetch(`http://localhost:3000/files/${id}`)
+          .then(res => res.json())
+          .then(data => {
+            document.getElementById("info").innerText =
+              JSON.stringify(data, null, 2);
+          });
+      }
+
+      // DOWNLOAD FILE
+      function downloadFile() {
+        const id = document.getElementById("fileIdDownload").value;
+        window.location.href = `http://localhost:3000/files/${id}/download`;
+      }
+    </script>
   </body>
 </html>
