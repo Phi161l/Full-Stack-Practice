@@ -8,7 +8,53 @@ export const createItem = async (
 ): Promise<void> => {
   const item = await Item.create(req.body);
 
+  // Invalidate list cache
+  await redisClient.del("items:all");
+
   res.status(201).json(item);
+};
+
+export const updateItem = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  const item = await Item.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+
+  if (!item) {
+    res.status(404).json({
+      message: "Item not found",
+    });
+    return;
+  }
+
+  // Invalidate caches
+  await redisClient.del("items:all");
+  await redisClient.del(`item:${req.params.id}`);
+
+  res.json(item);
+};
+
+export const deleteItem = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  const item = await Item.findByIdAndDelete(req.params.id);
+
+  if (!item) {
+    res.status(404).json({
+      message: "Item not found",
+    });
+    return;
+  }
+
+  await redisClient.del("items:all");
+  await redisClient.del(`item:${req.params.id}`);
+
+  res.json({
+    message: "Deleted",
+  });
 };
 
 export const getItems = async (req: Request, res: Response): Promise<void> => {
@@ -65,4 +111,3 @@ export const getItem = async (req: Request, res: Response): Promise<void> => {
 
   res.json(item);
 };
-
