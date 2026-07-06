@@ -67,16 +67,24 @@ export const getItems = async (req: Request, res: Response): Promise<void> => {
     console.log("CACHE HIT");
 
     res.json(JSON.parse(cachedItems));
+
+    const start = Date.now();
+    await redisClient.get(cacheKey);
+    const end = Date.now();
+    console.log(`Redis Read: ${end - start} ms`);
     return;
   }
 
   // 2. Fetch from MongoDB
   console.log("CACHE MISS");
 
+  const start = Date.now();
   const items = await Item.find();
+  const end = Date.now();
+  console.log(`MongoDB Query: ${end - start} ms`);
 
   // 3. Store in Redis
-  await redisClient.set(cacheKey, JSON.stringify(items));
+  await redisClient.set(cacheKey, JSON.stringify(items), { EX: 2 });
 
   // 4. Return data
   res.json(items);
@@ -107,7 +115,7 @@ export const getItem = async (req: Request, res: Response): Promise<void> => {
     return;
   }
 
-  await redisClient.set(cacheKey, JSON.stringify(item));
+  await redisClient.set(cacheKey, JSON.stringify(item), { EX: 60 });
 
   res.json(item);
 };

@@ -9,7 +9,6 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/items", itemRoutes);
-
 app.use("/redis", redisRoutes);
 
 export default app;
