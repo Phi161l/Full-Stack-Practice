@@ -6,16 +6,12 @@ type SearchFilters = {
   category?: string;
   minPrice?: number;
   maxPrice?: number;
+  sort?: "name" | "price" | "createdAt";
+  order?: "asc" | "desc";
 };
 
 export async function searchProducts(filters: SearchFilters) {
-  const { q, category, minPrice, maxPrice } = filters;
-  
-  console.log(q)
-  console.log(category)
-  console.log(minPrice)
-  console.log(maxPrice)
-
+  const { q, category, minPrice, maxPrice, sort, order } = filters;
 
   const filter: Prisma.ProductWhereInput = {};
 
@@ -52,7 +48,17 @@ export async function searchProducts(filters: SearchFilters) {
     }
   }
 
+  const sortOptions =
+    sort && order
+      ? {
+          [sort]: order,
+        }
+      : {
+          createdAt: "desc" as const,
+        };
+
   return prisma.product.findMany({
     where: filter,
+    orderBy: sortOptions,
   });
 }
