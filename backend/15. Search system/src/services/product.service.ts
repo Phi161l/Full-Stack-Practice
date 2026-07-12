@@ -8,10 +8,21 @@ type SearchFilters = {
   maxPrice?: number;
   sort?: "name" | "price" | "createdAt";
   order?: "asc" | "desc";
+  page?: number;
+  limit?: number;
 };
 
 export async function searchProducts(filters: SearchFilters) {
-  const { q, category, minPrice, maxPrice, sort, order } = filters;
+  const {
+    q,
+    category,
+    minPrice,
+    maxPrice,
+    sort,
+    order,
+    page = 1,
+    limit = 10,
+  } = filters;
 
   const filter: Prisma.ProductWhereInput = {};
 
@@ -57,8 +68,28 @@ export async function searchProducts(filters: SearchFilters) {
           createdAt: "desc" as const,
         };
 
-  return prisma.product.findMany({
-    where: filter,
-    orderBy: sortOptions,
-  });
+  const skip = (page - 1) * limit;
+
+  const [products, total] = await Promise.all([
+    prisma.product.findMany({
+      where: filter,
+      orderBy: sortOptions,
+      skip: skip,
+      take: limit,
+    }),
+
+    prisma.product.count({
+      where: filter,
+    }),
+  ]);
+
+  return {
+    data: products,
+    pagination: {
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    },
+  };
 }
