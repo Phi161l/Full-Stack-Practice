@@ -24,6 +24,9 @@ export async function searchProducts(filters: SearchFilters) {
     limit = 10,
   } = filters;
 
+  console.log(page);
+  console.log(limit);
+
   const filter: Prisma.ProductWhereInput = {};
 
   if (q) {
@@ -70,6 +73,9 @@ export async function searchProducts(filters: SearchFilters) {
 
   const skip = (page - 1) * limit;
 
+
+  console.time("Search");
+
   const [products, total] = await Promise.all([
     prisma.product.findMany({
       where: filter,
@@ -83,6 +89,9 @@ export async function searchProducts(filters: SearchFilters) {
     }),
   ]);
 
+  console.timeEnd("Search");
+
+
   return {
     data: products,
     pagination: {
@@ -93,3 +102,30 @@ export async function searchProducts(filters: SearchFilters) {
     },
   };
 }
+
+
+
+
+export async function searchByPrice(minPrice: number, maxPrice: number) {
+  console.time("Price Search");
+
+  const products = await prisma.product.findMany({
+    where: {
+      price: {
+        gte: minPrice,
+        lte: maxPrice,
+      },
+    },
+  });
+
+  console.timeEnd("Price Search");
+
+  return products;
+}
+
+
+async function main() {
+  const products = await searchByPrice(100, 500);
+}
+
+main();

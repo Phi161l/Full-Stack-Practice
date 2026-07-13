@@ -19,7 +19,11 @@ function createPrismaClient(): PrismaClient {
     globalForPrisma.pgPool = pool;
   }
 
-  return new PrismaClient({ adapter });
+  // return new PrismaClient({ adapter } log: ["query"]);
+  return new PrismaClient({
+    adapter,
+    log: ["query"],
+  });
 }
 
 export const prisma = globalForPrisma.prisma ?? createPrismaClient();

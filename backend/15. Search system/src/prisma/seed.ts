@@ -19,7 +19,7 @@ const categories = ["Electronics", "Accessories", "Office"];
 async function main() {
   const products: Prisma.ProductCreateManyInput[] = [];
 
-  for (let i = 1; i <= 100; i++) {
+  for (let i = 1; i <= 10000; i++) {
     const name = names[i % names.length];
 
     products.push({
@@ -34,7 +34,7 @@ async function main() {
     data: products,
   });
 
-  console.log("✅ Seeded 100 products");
+  console.log("✅ Seeded 10,000 products");
 }
 
 main()
