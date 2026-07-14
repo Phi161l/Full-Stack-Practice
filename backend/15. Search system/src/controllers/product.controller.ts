@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
-import { searchProducts } from "../services/product.service.js";
+import {
+  searchProducts,
+  searchProductsWithRanking,
+} from "../services/product.service.js";
 
 const VALID_SORT_FIELDS = ["name", "price", "createdAt"];
 const VALID_ORDER = ["asc", "desc"];
@@ -67,4 +70,23 @@ export async function searchProductsController(req: Request, res: Response) {
   });
 
   return res.json(result);
+}
+
+
+
+export async function searchProductsRankingController(
+  req: Request,
+  res: Response,
+) {
+  const q = req.query.q as string;
+
+  if (!q) {
+    return res.status(400).json({
+      message: "Search query is required",
+    });
+  }
+
+  const products = await searchProductsWithRanking(q);
+
+  return res.json(products);
 }
