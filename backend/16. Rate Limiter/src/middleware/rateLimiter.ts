@@ -1,25 +1,41 @@
 import { Request, Response, NextFunction } from "express";
 import { redisClient } from "../config/redis.js";
 
-const LIMIT = 5;
-const WINDOW = 60; // seconds
+type RateLimiterOptions = {
+  limit: number;
+  window: number;
+};
 
-export async function rateLimiter(req: Request, res: Response, next: NextFunction ) {
-  const ip = req.ip ?? "unknown";
+export function rateLimiter(options: RateLimiterOptions) {
+  return async function (req: Request, res: Response, next: NextFunction) {
+    const ip = req.ip ?? "unknown";
 
-  const key = `rate_limit:${ip}`;
+      const key = `rate_limit:${ip}:${req.baseUrl}`;
 
-  const currentRequests = await redisClient.incr(key);
+    const currentRequests = await redisClient.incr(key);
 
-  if (currentRequests === 1) {
-    await redisClient.expire(key, WINDOW);
-  }
+    if (currentRequests === 1) {
+      await redisClient.expire(key, options.window);
+    }
 
-  if (currentRequests > LIMIT) {
-    return res.status(429).json({
-      message: "Too many requests",
-    });
-  }
+    const ttl = await redisClient.ttl(key);
 
-  next();
-}   
+    const remaining = Math.max(options.limit - currentRequests, 0);
+
+    res.setHeader("X-RateLimit-Limit", options.limit);
+    res.setHeader("X-RateLimit-Remaining", remaining);
+
+    if (currentRequests > options.limit) {
+      res.setHeader("Retry-After", ttl);
+
+      return res.status(429).json({
+        message: "Rate limit exceeded",
+        limit: options.limit,
+        remaining,
+        retryAfter: ttl,
+      });
+    }
+
+    next();
+  };
+}
