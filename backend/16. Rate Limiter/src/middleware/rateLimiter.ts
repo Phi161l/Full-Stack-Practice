@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { redisClient } from "../config/redis.js";
+import { getClientIdentifier } from "../utils/identifier.js";
 
 type RateLimiterOptions = {
   limit: number;
@@ -8,9 +9,9 @@ type RateLimiterOptions = {
 
 export function rateLimiter(options: RateLimiterOptions) {
   return async function (req: Request, res: Response, next: NextFunction) {
-    const ip = req.ip ?? "unknown";
+    const identifier = getClientIdentifier(req);
 
-      const key = `rate_limit:${ip}:${req.baseUrl}`;
+    const key = `rate_limit:${identifier}:${req.baseUrl}`;
 
     const currentRequests = await redisClient.incr(key);
 
