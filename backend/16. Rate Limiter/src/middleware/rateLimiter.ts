@@ -13,29 +13,29 @@ export function rateLimiter(options: RateLimiterOptions) {
 
     const key = `rate_limit:${identifier}:${req.baseUrl}`;
 
-    const currentRequests = await redisClient.incr(key);
+    const now = Date.now();
 
-    if (currentRequests === 1) {
-      await redisClient.expire(key, options.window);
-    }
+    const windowStart = now - options.window * 1000;
 
-    const ttl = await redisClient.ttl(key);
+    // Remove expired requests
+    await redisClient.zRemRangeByScore(key, 0, windowStart);
 
-    const remaining = Math.max(options.limit - currentRequests, 0);
+    // Count current requests
+    const currentRequests = await redisClient.zCard(key);
 
-    res.setHeader("X-RateLimit-Limit", options.limit);
-    res.setHeader("X-RateLimit-Remaining", remaining);
-
-    if (currentRequests > options.limit) {
-      res.setHeader("Retry-After", ttl);
-
+    if (currentRequests >= options.limit) {
       return res.status(429).json({
         message: "Rate limit exceeded",
-        limit: options.limit,
-        remaining,
-        retryAfter: ttl,
       });
     }
+
+    // Store this request
+    await redisClient.zAdd(key, {
+      score: now,
+      value: `${now}`,
+    });
+
+    await redisClient.expire(key, options.window);
 
     next();
   };
